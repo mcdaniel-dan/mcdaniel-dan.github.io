@@ -17,7 +17,7 @@ body {
     display: flex;
 }
 
-.column {
+.col {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
