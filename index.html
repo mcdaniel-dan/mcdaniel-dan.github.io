@@ -8,15 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CIT 261: Mobile Application Development</title>
 
-    <!-- Style -->
+    <!-- External Style and JS -->
     <link rel="stylesheet" type="text/css" href="main.css">
+    <script src="main.js"></script>
   </head>
   <!-- Content -->
   <body>
     <h1>CIT 261: Mobile Application Development</h1>
     <h2>Objectives</h2>
       <div class="row">
-        <div class="col">1</div>
+        <div class="col">1
+          <button type="button" onlcick="test()">Test</button>
+        </div>
         <div class="col">2</div>
         <div class="col">3</div>
         <div class="col">4</div>
@@ -33,9 +36,9 @@
         <div class="col">11</div>
         <div class="col">12</div>
       </div>
-    <a href="http://google.com">Test</a>
+    <a href="http://google.com">Test Link</a>
     <p>Notes:</p>
-    <p>Use the following commands to save GitHub credentials for automatic use:</p>
+    <p id="para1" >Use the following commands to save GitHub credentials for automatic use:</p>
     <code>git config --get-all credential.helper
       <br>git config --global  credential.helper osxkeychain
     </code>
