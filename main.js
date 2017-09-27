@@ -7,6 +7,8 @@ function onload() {
   console.log("Initializing...");
   alert("Welcome\nYou're experience is being generated...");
 
+  var colors = {one:"red", two:"black"};//associative array/object
+
   //Create a div for Loops, Conditional Statements, Functions,
   //Variables, Parameters, Arrays, Associative Arrays
   var div1 = document.createElement("DIV");
@@ -21,9 +23,9 @@ function onload() {
 
       //impose a checkerboard pattern
       if ((n % 2 && m % 2) || (!(n % 2) && !(m % 2))) {
-        data.classList.add("red");
+        data.classList.add(colors["one"]);
       } else {
-        data.classList.add("black");
+        data.classList.add(colors["two"]);
       }
       if (isPrime(value)) data.classList.add("bold");
       data.innerHTML = value++; //set value of the td
@@ -43,9 +45,18 @@ function onload() {
 function isPrime(n) {
   if (n == 1) return false;
   var primes = [ 2, 3, 5, 7 ];
-  for (var i = 0; i < primes.length; i++) {
-    if (n == primes[i]) return true;
-    if (!(n % primes[i])) return false;
+
+  //check to see if n is a known prime
+  var i = 0;
+  do {
+    if (n == primes[i++]) return true;
+  } while (i < primes.length);
+
+  //check to see if n is a mulitple of a known prime
+  var j = 0;
+  while(j < primes.length) {
+    if (!(n % primes[j])) return false;
+    j++;
   }
   return true;
 }
