@@ -6,6 +6,25 @@ body {
     margin: 0;
 }
 
+.blue {
+  background-color: blue;
+  color: white;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.black {
+  background-color: black;
+  color: white;
+}
+
+td {
+  text-align: center;
+}
+
 .header {
     background-color: #f1f1f1;
     padding: 50px;
