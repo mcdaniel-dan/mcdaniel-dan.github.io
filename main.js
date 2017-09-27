@@ -25,6 +25,7 @@ function onload() {
       } else {
         data.classList.add("black");
       }
+      if (isPrime(value)) data.classList.add("bold");
       data.innerHTML = value++; //set value of the td
       row.appendChild(data);    //append the td to the row
     }
@@ -36,6 +37,17 @@ function onload() {
   // var para = document.createElement("P");
   // para.innerHTML = "BINGO!";
   // document.body.appendChild(para);
+}
+
+//determine if the number is prime for finite set
+function isPrime(n) {
+  if (n == 1) return false;
+  var primes = [ 2, 3, 5, 7 ];
+  for (var i = 0; i < primes.length; i++) {
+    if (n == primes[i]) return true;
+    if (!(n % primes[i])) return false;
+  }
+  return true;
 }
 
 function myFunction() {

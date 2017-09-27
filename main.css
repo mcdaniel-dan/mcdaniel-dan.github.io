@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    color: dimgray;
 }
 
 body {
@@ -8,16 +9,18 @@ body {
 
 .blue {
   background-color: blue;
-  color: white;
 }
 
 .red {
   background-color: red;
-  color: white;
 }
 
 .black {
   background-color: black;
+}
+
+.bold {
+  font-weight: bold;
   color: white;
 }
 
