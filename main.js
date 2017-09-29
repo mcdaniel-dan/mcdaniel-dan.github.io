@@ -5,7 +5,7 @@ var _count = _rows * _cols;
 
 function onload() {
   console.log("Initializing...");
-  alert("Welcome\nYou're experience is being generated...");
+  //alert("Welcome\nYou're experience is being generated...");
 
   var colors = {one:"red", two:"black"};//associative array/object
 
@@ -15,11 +15,30 @@ function onload() {
 
   //Create a table to store values for each lesson...
   var value = 1;
-  var table = document.createElement("TABLE");
+  //var table = document.createElement("TABLE");
+  var table = document.createElement("DIV");
   for (var m = 0; m < _rows; m++) {
-    var row = document.createElement("TR");   //create a row
+    //var row = document.createElement("TR");   //create a row
+    var row = document.createElement("DIV");   //create a row
+    //row.style.height = 100 * (1/_rows) + "%";
+    //row.style.height = "20vw";
+    // row.style.display = "table";
+    // row.style.clear = "both";
+    // row.style.content = "";
+
     for (var n = 0; n < _cols; n++) {         //loop through _count times
-      var data = document.createElement("TD");//create table data
+      //var data = document.createElement("TD");//create table data
+      var data = document.createElement("DIV");//create table data
+
+      //Squares
+      data.style.width  = 100 * (1/_cols) + "vw";
+      data.style.height = data.style.width;
+
+      //Middle Vertical Alignment
+      data.style.lineHeight = data.style.width;
+
+      //Checker Class -- Center Horizontal
+      data.classList.add("checker");
 
       //impose a checkerboard pattern
       if ((n % 2 && m % 2) || (!(n % 2) && !(m % 2))) {
