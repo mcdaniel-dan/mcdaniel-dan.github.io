@@ -22,6 +22,7 @@ td   { text-align: center; }
 
 /*Cell Definition*/
 .checker {
+  font-size: 4vw;
   float:left;         /*Horizontal Layout*/
   text-align: center; /*Horizontal Centering*/
 }

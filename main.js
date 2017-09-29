@@ -1,7 +1,7 @@
-var _rows = 8;
-var _cols = _rows;
-var _count = _rows * _cols;
-//var _count = 13;
+var ROWS = 8;
+var COLS = ROWS;
+var COUNT = ROWS * COLS;
+//var COUNT = 13;
 
 function onload() {
   console.log("Initializing...");
@@ -17,25 +17,23 @@ function onload() {
   var value = 1;
   //var table = document.createElement("TABLE");
   var table = document.createElement("DIV");
-  for (var m = 0; m < _rows; m++) {
+  for (var m = 0; m < ROWS; m++) {
     //var row = document.createElement("TR");   //create a row
     var row = document.createElement("DIV");   //create a row
-    //row.style.height = 100 * (1/_rows) + "%";
-    //row.style.height = "20vw";
-    // row.style.display = "table";
-    // row.style.clear = "both";
-    // row.style.content = "";
 
-    for (var n = 0; n < _cols; n++) {         //loop through _count times
+    for (var n = 0; n < COLS; n++) {         //loop through COUNT times
       //var data = document.createElement("TD");//create table data
       var data = document.createElement("DIV");//create table data
 
       //Squares
-      data.style.width  = 100 * (1/_cols) + "vw";
+      data.style.width  = 100 * (1/COLS) + "vw";
       data.style.height = data.style.width;
 
       //Middle Vertical Alignment
       data.style.lineHeight = data.style.width;
+
+      //Scale font to a reasonable size
+      data.style.fontSize = data.style.width / 2;
 
       //Checker Class -- Center Horizontal
       data.classList.add("checker");
