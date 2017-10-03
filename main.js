@@ -44,9 +44,9 @@ function onload() {
 
       //Add event handlers for touch events
       //data.onclick = function() { sendAlert() };
-      data.onTouchBegin = function() { sendAlert() };
-      //data.addEventListener("touchmove", touchmove(e), false);
-      //data.addEventListener("touchend", touchend(e), false);
+      data.onTouchBegin = function() { sendAlert("begin") };
+      data.onTouchMove  = function() { sendAlert("move")  };
+      data.onTouchEnd   = function() { sendAlert("end")   };
 
       //impose a checkerboard pattern
       if ((n % 2 && m % 2) || (!(n % 2) && !(m % 2))) {
@@ -96,7 +96,7 @@ function isPrime(n) {
 
 // function touchmove(e) {}
 // function touchend(e) {}
-function sendAlert() { alert("This is a test."); }
+function sendAlert(m) { alert(m); }
 
 function myFunction() {
   console.log("test");
