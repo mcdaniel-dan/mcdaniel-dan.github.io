@@ -43,7 +43,7 @@ function onload() {
       data.classList.add("checker");
 
       //Add event handlers for touch events
-      data.onclick = function() { sendAlert() };
+      //data.onclick = function() { sendAlert() };
       data.onTouchBegin = function() { sendAlert() };
       //data.addEventListener("touchmove", touchmove(e), false);
       //data.addEventListener("touchend", touchend(e), false);
