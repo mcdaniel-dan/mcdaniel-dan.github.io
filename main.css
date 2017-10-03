@@ -12,6 +12,7 @@ td   { text-align: center; }
 /*Colored Squares*/
 .blue  { background-color: blue; }
 .red   { background-color: red;  }
+.gray  { background-color: gray; }
 .black { background-color: black;}
 
 /*Font Weighting*/
