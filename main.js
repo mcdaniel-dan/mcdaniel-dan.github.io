@@ -11,7 +11,7 @@ function onload() {
   console.log("Initializing...");
   //alert("Welcome\nYou're experience is being generated...");
 
-  var colors = {one:"gray", two:"black"};//associative array/object
+  var colors = {one:"red", two:"black"};//associative array/object
 
   //Create a div for Loops, Conditional Statements, Functions,
   //Variables, Parameters, Arrays, Associative Arrays
@@ -43,13 +43,11 @@ function onload() {
       data.classList.add("checker");
 
       //Add event handlers for touch events
-      //data.onclick = function() { alert("click") };
+      //data.onclick = function() { alert("click") }; //removed for mobile
       data.ontouchcancel = function() { alert("touchcancel") };
       data.ontouchstart = function() { alert("touchstart") };
       data.ontouchmove = function() { alert("touchmove") };
       data.ontouchend = function() { alert("touchend") };
-      //data.addEventListener("touchmove", touchmove(e), false);
-      //data.addEventListener("touchend", touchend(e), false);
 
       //impose a checkerboard pattern
       if ((n % 2 && m % 2) || (!(n % 2) && !(m % 2))) {
@@ -91,15 +89,26 @@ function isPrime(n) {
   return true;
 }
 
-// function touchstart(e) {
-//   var obj = e.changedTouhes[0];
-//   var startx = parseInt(obj.clientX);
-//   console.log("Start: " + startx + "px");
-// }
-
-// function touchmove(e) {}
-// function touchend(e) {}
 function sendAlert() { alert("This is a test."); }
+
+//Animation
+function animateStuff() {
+  var elem = document.getElementById("stuff");
+  var pos = 0;
+  var id = setInterval(animate, 5); //Repeat 'animate' 5x
+
+  //This function manipulates stuff, animating it
+  function animate() {
+    if (pos == 350) {
+      clearInterval(id);
+    } else {
+      pos++;
+      elem.style.top = pos + 'px';
+      elem.style.left = pos + 'px';
+    }
+  }
+}
+
 
 function myFunction() {
   console.log("test");

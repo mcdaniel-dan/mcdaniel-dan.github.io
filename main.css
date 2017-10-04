@@ -26,6 +26,12 @@ td   { text-align: center; }
   font-size: 4vw;
   float:left;         /*Horizontal Layout*/
   text-align: center; /*Horizontal Centering*/
+  transition: background-color 2s, color 5s;
+}
+
+.checker:hover {
+  background-color: yellow;
+  color: black;
 }
 
 /*Media Declarations*/
