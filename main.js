@@ -43,9 +43,11 @@ function onload() {
       data.classList.add("checker");
 
       //Add event handlers for touch events
-      //data.onclick = function() { sendAlert() };
-      data.onTouchBegin = function() { sendAlert() };
-      data
+      data.onclick      = function() { sendAlert(value) };
+      //data.onTouchBegin = function() { sendAlert(value) };
+      //data.onTouchMove  = function() { sendAlert(value) };
+      data.onTouchEnd   = function() { sendAlert(value) };
+
       //impose a checkerboard pattern
       if ((n % 2 && m % 2) || (!(n % 2) && !(m % 2))) {
         data.classList.add(colors["one"]);
@@ -94,7 +96,7 @@ function isPrime(n) {
 
 // function touchmove(e) {}
 // function touchend(e) {}
-function sendAlert() { alert("This is a test."); }
+function sendAlert(m) { alert(m); }
 
 function myFunction() {
   console.log("test");
