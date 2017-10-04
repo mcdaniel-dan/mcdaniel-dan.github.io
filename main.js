@@ -64,6 +64,8 @@ function onload() {
   div1.appendChild(table);
   document.body.appendChild(div1);
 
+  data.setAttribute("id", "stuff");
+  animateStuff();
   // var para = document.createElement("P");
   // para.innerHTML = "BINGO!";
   // document.body.appendChild(para);
