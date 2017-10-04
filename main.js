@@ -43,11 +43,11 @@ function onload() {
       data.classList.add("checker");
 
       //Add event handlers for touch events
-      //data.onclick = function() { sendAlert() };
-      data.touchcancel = function() { console.log("touchcancel") };
-      data.touchstart = function() { console.log("touchstart") };
-      data.touchmove = function() { console.log("touchmove") };
-      data.touchend = function() { console.log("touchend") };
+      //data.onclick = function() { alert("click") };
+      //data.touchcancel = function() { alert("touchcancel") };
+      //data.touchstart = function() { alert("touchstart") };
+      data.ontouchmove = function() { alert("touchmove") };
+      data.ontouchend = function() { alert("touchend") };
       //data.addEventListener("touchmove", touchmove(e), false);
       //data.addEventListener("touchend", touchend(e), false);
 
