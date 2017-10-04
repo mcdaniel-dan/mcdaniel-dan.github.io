@@ -44,8 +44,8 @@ function onload() {
 
       //Add event handlers for touch events
       //data.onclick = function() { alert("click") };
-      //data.touchcancel = function() { alert("touchcancel") };
-      //data.touchstart = function() { alert("touchstart") };
+      data.ontouchcancel = function() { alert("touchcancel") };
+      data.ontouchstart = function() { alert("touchstart") };
       data.ontouchmove = function() { alert("touchmove") };
       data.ontouchend = function() { alert("touchend") };
       //data.addEventListener("touchmove", touchmove(e), false);
