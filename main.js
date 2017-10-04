@@ -45,8 +45,8 @@ function onload() {
       //Add event handlers for touch events
       data.onclick      = function() { sendAlert(value) };
       //data.onTouchBegin = function() { sendAlert(value) };
-      //data.onTouchMove  = function() { sendAlert(value) };
-      data.onTouchEnd   = function() { sendAlert(value) };
+      data.onTouchMove  = function() { sendAlert("move") };
+      data.onTouchEnd   = function() { sendAlert("end")  };
 
       //impose a checkerboard pattern
       if ((n % 2 && m % 2) || (!(n % 2) && !(m % 2))) {
