@@ -49,7 +49,7 @@ function onload() {
       //// data.ontouchmove = function() { alert("touchmove") };
       //// data.ontouchend = function() { alert("touchend") };
 
-      data.onctouchend = function(sender, eventArgs) { animateStuff(sender, eventArgs); }
+      //data.onctouchend = function(sender, eventArgs) { animateStuff(sender, eventArgs); }
 
       //create animation
       data.onclick = function(sender, eventArgs) { animateStuff(sender, eventArgs); }
