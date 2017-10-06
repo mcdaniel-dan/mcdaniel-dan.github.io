@@ -44,10 +44,15 @@ function onload() {
 
       //Add event handlers for touch events
       //data.onclick = function() { alert("click") }; //removed for mobile
-      data.ontouchcancel = function() { alert("touchcancel") };
-      data.ontouchstart = function() { alert("touchstart") };
-      data.ontouchmove = function() { alert("touchmove") };
-      data.ontouchend = function() { alert("touchend") };
+      //// data.ontouchcancel = function() { alert("touchcancel") };
+      //// data.ontouchstart = function() { alert("touchstart") };
+      //// data.ontouchmove = function() { alert("touchmove") };
+      //// data.ontouchend = function() { alert("touchend") };
+
+      data.onctouchend = function(sender, eventArgs) { animateStuff(sender, eventArgs); }
+
+      //create animation
+      data.onclick = function(sender, eventArgs) { animateStuff(sender, eventArgs); }
 
       //impose a checkerboard pattern
       if ((n % 2 && m % 2) || (!(n % 2) && !(m % 2))) {
@@ -57,6 +62,7 @@ function onload() {
       }
       if (isPrime(value)) data.classList.add("bold");
       data.innerHTML = value++; //set value of the td
+
       row.appendChild(data);    //append the td to the row
     }
     table.appendChild(row);
@@ -64,8 +70,8 @@ function onload() {
   div1.appendChild(table);
   document.body.appendChild(div1);
 
-  data.setAttribute("id", "stuff");
-  animateStuff();
+
+
   // var para = document.createElement("P");
   // para.innerHTML = "BINGO!";
   // document.body.appendChild(para);
@@ -94,20 +100,15 @@ function isPrime(n) {
 function sendAlert() { alert("This is a test."); }
 
 //Animation
-function animateStuff() {
-  var elem = document.getElementById("stuff");
-  var pos = 0;
+function animateStuff(sender, eventArgs) {
+  var elem = sender.target;
+  var rot = 0;
   var id = setInterval(animate, 5); //Repeat 'animate' 5x
 
   //This function manipulates stuff, animating it
   function animate() {
-    if (pos == 350) {
-      clearInterval(id);
-    } else {
-      pos++;
-      elem.style.top = pos + 'px';
-      elem.style.left = pos + 'px';
-    }
+    if (rot == 90) { elem.style.transform = "rotate(0deg)"; clearInterval(id); }
+    else { elem.style.transform = "rotate("+ (10 - (rot++ % 20)) +"deg)"; }
   }
 }
 
