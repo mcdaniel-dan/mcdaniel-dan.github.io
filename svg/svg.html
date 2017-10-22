@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="svg.css">
+  <script type="text/javascript">
+  function onLoad() {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    var svg = document.getElementById("svg");
+    svg.setAttribute( "width", w);
+    svg.setAttribute("height", h);
+
+    addShapes(25);
+    createGrid();
+  }
+
+  function createGrid() {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    var startx = 0;
+    var starty = 0;
+
+    //Grab the SVG elment
+    var svg = document.getElementById("svg");
+    var svgNS = svg.namespaceURI; //establish a link to the svg namespace
+
+    var squareSize =  (w > h ? h : w) / 3;
+
+    var side = squareSize;
+
+    if (w > h) {
+       startx = w / 2 - (1.5 * side);
+    } else {
+       starty = h / 2 - (1.5 * side);
+    }
+
+    var sx = 0;
+    var sy = 0;
+
+    for (var i = 0; i < 3; i++) {
+      sy = starty + (side * i);  //move shape over for next set
+
+      for (var j = 0; j < 3; j++) {
+      sx = startx + (side * j);
+
+      var shape = document.createElementNS(svgNS, "rect"); //use the namespace to create a new shape
+
+      shape.setAttribute( "width", side);  //shape dimensions
+      shape.setAttribute("height", side);
+      shape.setAttribute("rx", 10);      //rouned corners
+      shape.setAttribute("ry", 10);
+      shape.setAttribute("x", sx);       //location
+      shape.setAttribute("y", sy);
+
+      shape.setAttribute("style", "fill:" + "lightblue" + ";" +
+      "stroke:white;" +
+      "stroke-width:2;" +
+      "fill-opacity:.85;" +
+      "stroke-opacity:1");
+
+      shape.setAttribute("id", (3 * i) + j);
+      shape.setAttribute("onclick","check("+((3 * i) + j).toString()+")");
+
+      svg.appendChild(shape);
+      var text = document.createElementNS(svgNS, "text");
+      text.innerHtml = "Dog";
+      text.setAttribute("style", "fill:red;");
+      text.setAttribute("x", 50);
+      text.setAttribute("y", 20);
+
+      svg.appendChild(text);
+    }
+  }
+}
+
+function check(cell){
+  var item = document.getElementById(cell.toString());
+  item.setAttribute("opacity", 0);
+
+}
+
+function addShapes(count) {
+  for (var i = 0; i < count; i++)
+  {
+    addShape();
+  }
+}
+
+function addShape() {
+
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+
+  //Grab the SVG elment
+  var svg = document.getElementById("svg");
+  var svgNS = svg.namespaceURI; //establish a link to the svg namespace
+
+  var shape = document.createElementNS(svgNS, "rect"); //use the namespace to create a new shape
+  var sw = (.1 + Math.random()) * w / 2;
+  var sh = (.1 + Math.random()) * h / 2;
+  shape.setAttribute( "width", sw);
+  shape.setAttribute("height", sh);
+  shape.setAttribute("rx", 10);
+  shape.setAttribute("ry", 10);
+  shape.setAttribute("x", Math.random() * (w - sw));
+  shape.setAttribute("y", Math.random() * (h - sh));
+  shape.setAttribute("style", "fill:" + randomColor() + ";" +
+  "stroke:black;" +
+  "stroke-width:0;" +
+  "fill-opacity:.1;" +
+  "stroke-opacity:0.9");
+
+  var animate = document.createElementNS(svgNS, "animate");
+  animate.setAttribute("attributeType","CSS");
+  animate.setAttribute("attributeName","opacity");
+  animate.setAttribute("values","0;1;0");
+  animate.setAttribute("dur", 5 + Math.random() * 100 + "s");
+  animate.setAttribute("repeatCount","indefinite");
+
+  shape.appendChild(animate);
+  svg.appendChild(shape);
+}
+
+function randomColor() {
+  return "#" + ((1<<24) * Math.random() | 0).toString(16);
+}
+
+function addTone() {
+  // one context per document
+  var context = new (window.AudioContext || window.webkitAudioContext)();
+  var osc = context.createOscillator(); // instantiate an oscillator
+  osc.type = 'sine'; // this is the default - also square, sawtooth, triangle
+  osc.frequency.value = 440; // Hz
+  var vol = context.createGainNode();
+
+  vol.gain.value = 0.1; // from 0 to 1, 1 full volume, 0 is muted
+  osc.connect(vol); // connect osc to vol
+
+  osc.connect(context.destination); // connect it to the destination
+  osc.start(); // start the oscillator
+}
+
+</script>
+</head>
+
+<body onload="onLoad();">
+  <svg id="svg" style="width:100%; height:100%;">Your browser does not support inline SVG.
+  </svg>
+</body>
+</html>

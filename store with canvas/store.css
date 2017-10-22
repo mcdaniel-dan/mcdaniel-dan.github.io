@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css?family=Syncopate|Work+Sans:200');
+
+* {
+        text-color: white;
+        font-family: 'Work Sans', sans-serif;
+}
+
+body {
+  background-color: black;
+  background-image: url("http://bgfons.com/upload/iron_texture2386.jpg");
+  background-repeat: no-repeat;
+}
+
+h1 {
+  font-family: 'Syncopate', sans-erif;
+      padding: 20px 50px;
+}
+
+img {
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+  border-radius: 25px;
+          width: 250px;
+         height: 250px;
+}
+
+label {
+    padding: 0px 0px 0px 20px;
+  font-size: 30px;
+}
+
+div {
+     text-align: center;
+         margin: auto auto;
+        display: block;
+          width: 50%;
+         height: 50%;
+          float: left;
+  border-radius: 25px;
+}
+
+#div1 {
+  background: #DDD;
+   font-size: 36px;
+      border: 0px solid black;
+}
+#div2 {
+  background: #AAA;
+      border: 0px solid black;
+}
+#div3 {
+  background: #777;
+      border: 0px solid black;
+}
+#div4 {
+  background: #444;
+      border: 0px solid black;
+}
+
+#review, #confirm {
+  background: #111;
+       color: white;
+      border: 0px solid black;
+      width: 50%;
+     height: 65%;
+    padding: 20px;
+
+   position: absolute;
+        top: 20%;
+       left: 25%;
+
+}
+
+#reviewTitle {
+       color: white;
+}
+
+select {
+  font-size: 20pt;
+}
+
+.price {
+
+}
+
+.add {
+    background-color: #111;
+    border: none;
+    color: white;
+    padding: 6px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+fieldset {
+  display: inline;
+  border: 0px;
+}
+
+input {
+    font-size: 20pt;
+    border-radius: 7px;
+}
+
+input,textarea{width:95%;display:block}
+
+.submit {
+  background-color: green;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.reset {
+  background-color: red;
+  border: 1px solid white;
+  color: white;
+  padding: 6px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+table {
+  width: 90%;
+  color: white;
+}
+
+.invalid {
+  border: 3px solid red;
+}
+
+.valid {
+    border: 1px solid green;
+}
+
+.total {
+  color: white;
+}
+
+.sale {
+  font-size: 72px;
+  font-weight: bolder;
+  color: red;
+  transform: rotate(-12deg);
+}
+
+canvas {
+     margin: auto auto;
+     display: block;
+     width: 50%
+}
