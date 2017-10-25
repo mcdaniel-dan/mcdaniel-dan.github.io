@@ -154,27 +154,31 @@
 			function draw() {
 				generateBalls();
 				context.clearRect(0, 0, stageWidth, stageHeight);
+        context.font = "30px Verdana";
 				var i = balls.length;
 				while(--i > -1) {
+					//Letter
+					context.fillStyle = "white";
+					context.textAlign="center";
+					context.fillText(balls[i].letter, balls[i].x, balls[i].y + 9);
+
+					//Ball
 					context.fillStyle = balls[i].color;
 					context.beginPath();
 					context.arc(balls[i].x,balls[i].y,balls[i].size,0,Math.PI*2,true);
 					context.closePath();
 					context.fill();
 
-					context.font = "30px Verdana";
 					// Create gradient
-					var gradient = context.createLinearGradient(0, 0, stageWidth, 0);
-					gradient.addColorStop("0", "magenta");
-					gradient.addColorStop("0.5", "blue");
-					gradient.addColorStop("1.0", "red");
+					// var gradient = context.createLinearGradient(0, 0, stageWidth, 0);
+					// gradient.addColorStop("0", "magenta");
+					// gradient.addColorStop("0.5", "blue");
+					// gradient.addColorStop("1.0", "red");
 					// Fill with gradient
 					//context.fillStyle = gradient;
 					//context.fillText("Big smile!", 10, 90);
-					context.save();
-					context.fillStyle = "white";
-					context.textAlign="center";
-					context.fillText(balls[i].letter, balls[i].x, balls[i].y + 9);
+
+
 				}
 				//write the letter rack
 				context.fillText(rack, stageWidth / 2, stageHeight - 20);
