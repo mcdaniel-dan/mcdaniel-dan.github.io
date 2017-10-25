@@ -160,7 +160,7 @@
 					//Letter
 					context.fillStyle = "white";
 					context.textAlign="center";
-					context.zIndex = 5;
+					context.zIndex = -1;
 					context.fillText(balls[i].letter, balls[i].x, balls[i].y + 9);
 
 
@@ -169,7 +169,7 @@
 					context.beginPath();
 					context.arc(balls[i].x,balls[i].y,balls[i].size,0,Math.PI*2,true);
 					context.closePath();
-					context.zIndex = -1;
+					context.zIndex = 5;
 					context.fill();
 
 					// Create gradient
