@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>CS 213 Ponder Week 10 - AJAX</title>
+  <script type="text/javascript" src="week10.js"></script>
+  <link rel="stylesheet" type="text/css" href="week10.css"></link>
+</head>
+<body>
+
+  <div id="container">
+    <!-- Part 1 -->
+    <div id="part1">
+      <h1>Countries</h1>
+      <select id="countriesSelect" onchange="onCountrySelection();">
+        <option disabled selected value> Choose a country... </option>
+        <option value="canada.txt">Canada</option>
+        <option value="mexico.txt">Mexico</option>
+        <option value="russia.txt">Russia</option>
+        <option value="usa.txt">USA</option>
+      </select>
+      <table id="populationTable"></table>
+    </div>
+  <!-- Part 2 -->
+  <div id="part2">
+    <h1>Students</h1>
+    <textfield>
+      <input id="JSONFile" type="text" value="json.txt">
+      <button onclick="loadJSON();">Load</button>
+      <table id="studentinfo">
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

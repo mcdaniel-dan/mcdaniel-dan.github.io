@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bsa SYSTEM "BSA.dtd">
+<?xml-stylesheet type="text/xsl" href="BSA.xsl" ?>
+<bsa>
+  <council name="Yosemite">
+    <troop troop_number="1234"
+           unit_name="Electric Rainbows">
+      <scout>
+        <first_name>Jackson</first_name>
+        <last_name>Taylor</last_name>
+        <address>
+          <street>762 W. Moreland Street</street>
+          <city>St. Petersberg</city>
+          <state>FL</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1934">Tenderfoot</rank>
+        <meritbadge date-earned="1/2/1936">Camping</meritbadge>
+      </scout>
+      <scout>
+        <first_name>Milton</first_name>
+        <last_name>Worthheim</last_name>
+        <address>
+          <street>92 Flackjacket Highway</street>
+          <city>Compton</city>
+          <state>CA</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1934">Tenderfoot</rank>
+        <rank date-earned="1/2/1936">2nd Class</rank>
+        <meritbadge date-earned="1/2/1936">Camping</meritbadge>
+        <meritbadge date-earned="1/2/1936">Archery</meritbadge>
+        <meritbadge date-earned="1/2/1936">Basket Weaving</meritbadge>
+      </scout>
+    </troop>
+    <troop troop_number="8888"
+           unit_name="Doughnut Brigade">
+      <scout>
+        <first_name>Leeland</first_name>
+        <last_name>Morris</last_name>
+        <address>
+          <street>5672 Jackcreek Slough</street>
+          <city>Rexholm</city>
+          <state>KS</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1935">Tenderfoot</rank>
+        <meritbadge date-earned="1/2/1937">Camping</meritbadge>
+      </scout>
+      <scout>
+        <first_name>Bradley</first_name>
+        <last_name>Shoebottom</last_name>
+        <address>
+          <street>72 Freedom Avenue</street>
+          <city>Watts</city>
+          <state>CA</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1935">Tenderfoot</rank>
+        <rank date-earned="1/2/1937">2nd Class</rank>
+        <meritbadge date-earned="1/2/1933">Camping</meritbadge>
+        <meritbadge date-earned="1/2/1935">Archery</meritbadge>
+        <meritbadge date-earned="1/2/1936">Basket Weaving</meritbadge>
+      </scout>
+    </troop>
+  </council>
+  <council name="Washougal">
+    <troop troop_number="4321"
+           unit_name="Emerald Farmers">
+      <scout>
+        <first_name>Horton</first_name>
+        <last_name>Hoover</last_name>
+        <address>
+          <street>762 W. Moreland Street</street>
+          <city>St. Petersberg</city>
+          <state>FL</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1934">Tenderfoot</rank>
+        <meritbadge date-earned="1/2/1936">Camping</meritbadge>
+      </scout>
+      <scout>
+        <first_name>Donald</first_name>
+        <last_name>Trump</last_name>
+        <address>
+          <street>92 Flackjacket Highway</street>
+          <city>Compton</city>
+          <state>CA</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1934">Tenderfoot</rank>
+        <rank date-earned="1/2/1936">2nd Class</rank>
+        <meritbadge date-earned="1/2/1936">Camping</meritbadge>
+        <meritbadge date-earned="1/2/1936">Archery</meritbadge>
+        <meritbadge date-earned="1/2/1936">Basket Weaving</meritbadge>
+      </scout>
+    </troop>
+    <troop troop_number="0000"
+           unit_name="Northern Pacific">
+      <scout>
+        <first_name>Franklin</first_name>
+        <last_name>Templeton</last_name>
+        <address>
+          <street>5672 Jackcreek Slough</street>
+          <city>Rexholm</city>
+          <state>KS</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1935">Tenderfoot</rank>
+        <meritbadge date-earned="1/2/1937">Camping</meritbadge>
+      </scout>
+      <scout>
+        <first_name>Joe</first_name>
+        <last_name>Smith</last_name>
+        <address>
+          <street>72 Freedom Avenue</street>
+          <city>Watts</city>
+          <state>CA</state>
+        </address>
+        <phone>(555) 555-1212</phone>
+        <rank date-earned="1/2/1935">Tenderfoot</rank>
+        <rank date-earned="1/2/1937">2nd Class</rank>
+        <meritbadge date-earned="1/2/1933">Camping</meritbadge>
+        <meritbadge date-earned="1/2/1935">Archery</meritbadge>
+        <meritbadge date-earned="1/2/1936">Basket Weaving</meritbadge>
+      </scout>
+    </troop>
+  </council>
+</bsa>

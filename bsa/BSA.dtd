@@ -1,0 +1,23 @@
+<!ELEMENT bsa (council+)>
+<!ELEMENT council (troop+)>
+<!ATTLIST council name CDATA #REQUIRED>
+
+<!ELEMENT troop (scout+)>
+<!ATTLIST troop troop_number CDATA #REQUIRED
+                unit_name    CDATA #REQUIRED>
+
+<!ELEMENT scout (first_name, last_name, address, phone, rank*, meritbadge*)>
+<!ELEMENT first_name (#PCDATA)>
+<!ELEMENT last_name  (#PCDATA)>
+<!ELEMENT phone      (#PCDATA)>
+
+<!ELEMENT address (street, city, state)>
+<!ELEMENT street     (#PCDATA)>
+<!ELEMENT city       (#PCDATA)>
+<!ELEMENT state      (#PCDATA)>
+
+<!ELEMENT rank (#PCDATA)>
+<!ATTLIST rank date-earned CDATA #REQUIRED>
+
+<!ELEMENT meritbadge (#PCDATA)>
+<!ATTLIST meritbadge date-earned CDATA #REQUIRED>
