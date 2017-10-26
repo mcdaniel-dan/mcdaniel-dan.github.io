@@ -76,7 +76,8 @@
 					var dx = mouseX - balls[j].x;
 					var dy = mouseY - balls[j].y;
 					var dist = Math.sqrt(dx * dx + dy * dy);
-					if(dist < balls[j].size/2) {
+
+					if(dist < balls[j].size/2) { //detect ball touches
 						currentDrag = balls[j];
 						currentDrag.dragging = true;
 						rack += currentDrag.letter; //add letter to rack
@@ -84,6 +85,8 @@
 						return;
 					}
 				}
+				checkWord(rack);
+				rack = ""; //clear word
 				generateBalls(mouseX, mouseY);
 			}
 
@@ -117,7 +120,7 @@
 			{
 				color="#"
 				for (i = 0; i < 6; i++) {
-					color += "0123456789abcdef".charAt(Math.round(Math.random()*16));
+					color += "0123456789abcdef".charAt(Math.round(Math.random()*8)); //8 excludes light colors
 				}
   		  return color;
 				//return "red";
@@ -157,20 +160,21 @@
         context.font = "30px Verdana";
 				var i = balls.length;
 				while(--i > -1) {
-					//Letter
-					context.fillStyle = "white";
-					context.textAlign="center";
-					context.zIndex = -1;
-					context.fillText(balls[i].letter, balls[i].x, balls[i].y + 9);
-
-
 					//Ball
-					context.fillStyle = balls[i].color;
 					context.beginPath();
-					context.arc(balls[i].x,balls[i].y,balls[i].size,0,Math.PI*2,true);
-					context.closePath();
-					context.zIndex = 5;
+					context.arc(balls[i].x, balls[i].y, balls[i].size, 0, Math.PI*2, true);
+					context.fillStyle = balls[i].color;
+					//context.fillStyle = "green"; //for debug
 					context.fill();
+					//context.closePath();
+
+					//Letter
+					//context.beginPath();
+					context.textAlign = "center";
+					context.textBaseline = "middle";
+					context.fillStyle = "white";
+					context.fillText(balls[i].letter, balls[i].x, balls[i].y - 2); //shift letters up slightly
+					//context.closePath();
 
 					// Create gradient
 					// var gradient = context.createLinearGradient(0, 0, stageWidth, 0);
@@ -184,7 +188,11 @@
 
 				}
 				//write the letter rack
-				context.fillText(rack, stageWidth / 2, stageHeight - 20);
+				context.textAlign = "center";
+				context.textBaseline = "middle";
+				context.fillStyle = "white";
+				context.fillText(rack, stageWidth / 2, stageHeight - 30);
+				//var domRect = element.getBoundingClientRect(); //???
 			}
 
 			function update(ball) {
@@ -292,6 +300,30 @@
   				if (mouseY < 0) { mouseY = 0; }
 
   				return true;
+			}
+
+			function checkWord(word) {
+				var url = "http://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=1&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+        		var defs = JSON.parse(this.responseText);
+						if (defs.length == 0) {
+							alert("bad");
+							return false;
+						} else {
+							alert("good");
+							context.textAlign = "left";
+							context.textBaseline = "top";
+							context.fillStyle = "gray";
+							context.fillText(defs[0].text, 10, 10);
+
+							return true;
+						}
+    			}
+				};
+			xmlhttp.open("GET", url, true);
+			xmlhttp.send();
 			}
 
 			function getDocWidth() {
