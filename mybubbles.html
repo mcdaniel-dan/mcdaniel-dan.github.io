@@ -6,7 +6,8 @@
 	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
 
 	<style>
-	* { margin:0; padding:0; background-color:#87CEFA; }
+	/* { margin:0; padding:0; background-color:#87CEFA; } */
+	* { margin:0; padding:0; background-color:#666666; }
 	</style>
 
 	<canvas id="stage" width="400" height="400">
@@ -19,6 +20,7 @@
 	var rack = ""; //to store letters for word making
 	var latestWord = "Wubbles";
 	var latestDef = "A mobile word bubble game created for CS261!";
+	var score = 0;
 
 	var browserX = window.screenX;
 	var browserY = window.screenY;
@@ -83,7 +85,7 @@
 			if(dist < balls[j].size/2) { //detect ball touches
 				currentDrag = balls[j];
 				currentDrag.dragging = true;
-				rack += currentDrag.letter; //add letter to rack
+				rack += currentDrag.letters[0]; //add letter to rack
 				balls.splice(j,1); //remove from balls
 				return;
 			}
@@ -104,7 +106,7 @@
 		if (balls.length < maxBalls) {
 			for(var i = 0; i < volleySize; i++)	{
 				var ball = {}; //ball object
-				ball.letter = generateLetter();
+				ball.letters = [ generateLetter() ];
 				ball.color = generateColor();
 				ball.bounce = .5 + (Math.random() * .5);
 				ball.vx = Math.random() * 50 - 25;
@@ -121,6 +123,24 @@
 		}
 	}
 
+	function combineObjects(obj1, obj2) {
+		//merge
+		if (obj1.letters.length + obj2.letters.length <= 7) {
+			for (letter in obj2.letters)
+				obj1.letters.push(letter);
+
+		//remove
+		var j = balls.length; //array of balls
+		while(--j > -1) {
+			if(obj2.x == balls[j].x && obj2.y == balls[j].y) {
+				balls.splice(j,1); //remove from balls
+				return true;
+			}
+		}
+	}
+	return false; //unable to merge - too big
+}
+
 	//generates random color
 	function generateColor()
 	{
@@ -130,6 +150,10 @@
 		}
 		return color;
 		//return "red";
+	}
+
+	function score(word) {
+		return word.length;
 	}
 
 	//generates random color
@@ -161,47 +185,26 @@
 	}
 
 	function draw() {
-		generateBalls();
-		context.clearRect(0, 0, stageWidth, stageHeight);
-
-		var i = balls.length;
+		generateBalls(); //generate new balls if necesary
+		context.clearRect(0, 0, stageWidth, stageHeight); //clear screen
 
 		//write background
-		////TODO: wrap text using context.measureText(text)
 		context.font = "1em Verdana";
 		context.textAlign = "left";
 		context.textBaseline = "top";
 		context.fillStyle = "gray";
-		context.fillText(latestWord + " - " + latestDef, 20, 20);
-
+		context.fillText("Score: " + score, 20, stageHeight - 30);
+		//context.fillText(latestWord + " - " + latestDef, 20, 20);
 		writeDef();
 
-
 		//Draw Balls
+		var i = balls.length;
 		context.font = "2em Verdana";
 		while(--i > -1) {
-
-			// Create gradient for ball fill
-			var gradient = context.createRadialGradient(balls[i].x, balls[i].y, 5, balls[i].x + 5, balls[i].y + 5, 100);
-			gradient.addColorStop(0, balls[i].color);
-			gradient.addColorStop(.5, "transparent");
-			gradient.addColorStop(1, balls[i].color);
-			context.fillStyle = gradient;
-
-			//Ball
-			context.beginPath();
-			context.arc(balls[i].x, balls[i].y, balls[i].size, 0, Math.PI*2, true);
-			//context.fillStyle = balls[i].color; //solid color
-			//context.fillStyle = "green"; //for debug
-			context.fill();
-
-			//Letter
-			context.textAlign = "center";
-			context.textBaseline = "middle";
-			context.fillStyle = "white";
-			context.fillText(balls[i].letter, balls[i].x, balls[i].y - 2); //shift letters up slightly
+			drawBall(balls[i]);
 		}
-		//write the letter rack
+
+		//Draw letter rack
 		//TODO: Use context.measureText(text).width to measure rack area.
 		context.font = "2em Verdana";
 		context.textAlign = "center";
@@ -211,6 +214,29 @@
 		//var domRect = element.getBoundingClientRect(); //???
 	}
 
+	function drawBall(ball) {
+		// Create gradient for ball fill
+		var gradient = context.createRadialGradient(ball.x, ball.y, 5, ball.x + 5, ball.y + 5, 100);
+		gradient.addColorStop(0, ball.color);
+		gradient.addColorStop(.5, "transparent");
+		gradient.addColorStop(1, ball.color);
+		context.fillStyle = gradient;
+
+		//Ball
+		context.beginPath();
+		context.arc(ball.x, ball.y, ball.size, 0, Math.PI*2, true);
+		//context.fillStyle = balls[i].color; //solid color
+		//context.fillStyle = "green"; //for debug
+		context.fill();
+
+		//Letter
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillStyle = "white";
+		context.fillText(ball.letters[0], ball.x, ball.y - 2); //shift letters up slightly
+		//context.fillText(ball.letters.length, ball.x, ball.y - 2); //shift letters up slightly
+	}
+
 	function update(ball) {
 		collisionCheck();
 
@@ -218,7 +244,7 @@
 		// var drag = .98; //original drag
 
 		var gravity = 0; // no gravity
-		var drag = .9999999; //very little resistence
+		var drag = .99;//.9999999; //very little resistence
 
 		if(ball.dragging) {
 			ball.vx = ball.x - ball.ox;
@@ -272,37 +298,42 @@
 	{
 		var spring = .5;
 
-		for(var i = 0; i < (balls.length-1); ++i)
+		for(var i = 0; i < (balls.length-1); ++i) //iterate through all balls
 		{
-			var ball0 = balls[i];
+			var ball0 = balls[i]; //grab a ball
 
-			for(var j = i + 1; j < balls.length; ++j)
+			for(var j = i + 1; j < balls.length; ++j) //check it against all other balls
 			{
-				var ball1 = balls[j];
-				var dx = ball1.x - ball0.x;
+				var ball1 = balls[j]; //get a second ball to test against
+				var dx = ball1.x - ball0.x; //see how far apart they are
 				var dy = ball1.y - ball0.y;
 				var dist = Math.sqrt(dx * dx + dy * dy);
-				var minDist = ball0.size + ball1.size;
+				var minDist = ball0.size + ball1.size; //caluclate what distance constitutes a collision
 
-				if(dist < minDist) {
-					var angle = Math.atan2(dy, dx);
-					var tx = ball0.x + dx / dist * minDist;
-					var ty = ball0.y + dy / dist * minDist;
-					var ax = (tx - ball1.x);
-					var ay = (ty - ball1.y);
-
-
-					ball0.x -= ax;
-					ball0.y -= ay;
-
-					ball1.x += ax;
-					ball1.y += ay;
+				if(dist < minDist) { //if we have a collision
+					//try to combine objects
+					if (!combineObjects(ball0, ball1)) {
+						//var angle = Math.atan2(dy, dx);
+						var tx = ball0.x + dx / dist * minDist;
+						var ty = ball0.y + dy / dist * minDist;
+						var ax = (tx - ball1.x);
+						var ay = (ty - ball1.y);
 
 
-					ball0.vx -= (ax * spring);
-					ball0.vy -= (ay * spring);
-					ball1.vx += (ax * spring);
-					ball1.vy += (ay * spring);
+						ball0.x -= ax;
+						ball0.y -= ay;
+
+						ball1.x += ax;
+						ball1.y += ay;
+
+
+						ball0.vx -= (ax * spring);
+						ball0.vy -= (ay * spring);
+						ball1.vx += (ax * spring);
+						ball1.vy += (ay * spring);
+					} else {
+						//combine momentum
+					}
 				}
 			}
 		}
@@ -334,6 +365,8 @@
 					//alert("good");
 					latestWord = word;
 					latestDef = defs[0].text;
+
+					score += score(word);
 
 					return true;
 				}
@@ -379,7 +412,7 @@
 		// Visually output text
 		context.clearRect(0, 0, 500, 500);
 		for (var i = 0, len = lines.length; i < len; i++) {
-			context.fillText(lines[i].text, 20, 40 + lines[i].height);
+			context.fillText(lines[i].text, 20, 10 + lines[i].height);
 		}
 	}
 
