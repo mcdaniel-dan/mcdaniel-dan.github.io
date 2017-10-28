@@ -152,8 +152,8 @@
 		//return "red";
 	}
 
-	function score(word) {
-		return word.length;
+	function scoreWord(word) {
+		return Math.pow(word.length,2);
 	}
 
 	//generates random color
@@ -360,13 +360,15 @@
 					latestWord = word;
 					latestDef = 'a "word" you just made up';
 
+					score -= scoreWord(word);
+
 					return false;
 				} else {
 					//alert("good");
 					latestWord = word;
 					latestDef = defs[0].text;
 
-					score += score(word);
+					score += scoreWord(word);
 
 					return true;
 				}
