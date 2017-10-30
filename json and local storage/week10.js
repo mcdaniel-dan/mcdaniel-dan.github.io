@@ -33,7 +33,7 @@ function onCountrySelection() {
 }
 
 function loadJSON(){
-  var fileName = "/~elderpi/" + document.getElementById("JSONFile").value;
+  var fileName = "./" + document.getElementById("JSONFile").value;
   var students = document.getElementById("studentinfo");
 
   var contents;
