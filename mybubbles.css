@@ -1,0 +1,41 @@
+/*Default Style*/
+/* { margin:0; padding:0; background-color:#87CEFA; } */
+* { margin:0; padding:0; background-color:#666666; }
+
+/*HTML Tags*/
+body { margin: 0; }
+td   { text-align: center; }
+
+/*Class Declarations*/
+/*Colored Squares*/
+.blue  { background-color: blue; }
+.red   { background-color: red;  }
+.gray  { background-color: gray; }
+.black { background-color: black;}
+
+/*Font Weighting*/
+.bold {
+  font-weight: bold;
+  color: white;
+}
+
+/*Cell Definition*/
+.checker {
+  font-size: 4vw;
+  float:left;         /*Horizontal Layout*/
+  text-align: center; /*Horizontal Centering*/
+  transition: background-color 2s, color 5s;
+}
+
+.checker:hover {
+  background-color: yellow;
+  color: black;
+}
+
+/*Media Declarations*/
+@media (max-width: 600px) {
+    .row {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+}
