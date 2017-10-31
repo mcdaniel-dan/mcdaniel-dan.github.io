@@ -11,7 +11,7 @@ var browserX = window.screenX;
 var browserY = window.screenY;
 var balls = [];
 var volleySize = 1; //number of balls generated
-var maxBalls = 10;
+var maxBalls = 5;
 var currentDrag = null;
 var mouseX = 0;
 var mouseY = 0;
@@ -69,12 +69,21 @@ function onMouseDown() {
 
     //if(dist < balls[j].size/2) { //detect ball touches
     if(dist < balls[j].size) { //detect ball touches
-      currentDrag = balls[j];
-      currentDrag.dragging = true;
-      rack += currentDrag.letters[0]; //add letter to rack
-      balls.splice(j,1); //remove from balls
-      document.getElementById("pop").play();
-      return;
+      if (balls[j].letters.length > 1) { //letter group
+        while (balls[j].letters.length > 1) {
+          newBall(balls[j].x, balls[j].y, balls[j].letters[0]);
+          balls[j].letters.splice(0,1);
+        }
+        document.getElementById("pop").play();
+        return;
+      } else { //single ball
+        currentDrag = balls[j];
+        currentDrag.dragging = true;
+        rack += currentDrag.letters[0]; //add letter to rack
+        balls.splice(j,1); //remove from balls
+        document.getElementById("pop").play();
+        return;
+      }
     }
   }
   //word submissions
@@ -110,12 +119,33 @@ function generateBalls(mX, mY) {
   }
 }
 
+function newBall(mX, mY, letter) {
+  //if (balls.length < maxBalls) {
+    //for(var i = 0; i < volleySize; i++)	{
+      var ball = {}; //ball object
+      ball.letters = [ letter ];
+      ball.color = generateColor();
+      ball.bounce = .5 + (Math.random() * .5);
+      ball.vx = Math.random() * 50 - 25;
+      ball.vy = Math.random() * 50 - 25;
+      //ball.size = 45 - (ball.bounce * 25); //original size
+      ball.size = 50; //fixed ball size
+
+      ball.x = Math.random() * stageWidth;
+      ball.y = Math.random() * stageHeight;
+      //					 ball.x = (mX) ? (mX + Math.random() * 4) : (Math.random() * stageWidth);
+      //					 ball.y = (mY) ? (mY + Math.random() * 4) : (Math.random() * stageHeight);
+      balls[balls.length] = ball;
+    //}
+  //}
+}
+
 function combineObjects(obj1, obj2) {
   //merge
   if (obj1.letters.length + obj2.letters.length <= 7) {
     for (letter in obj2.letters)
-      obj1.letters.push(letter);
-
+      obj1.letters.push(obj2.letters[letter]);
+  console.log(obj1.letters);
   //remove
   var j = balls.length; //array of balls
   while(--j > -1) {
@@ -207,21 +237,97 @@ function drawBall(ball) {
   gradient.addColorStop(0, ball.color);
   gradient.addColorStop(.5, "transparent");
   gradient.addColorStop(1, ball.color);
-  context.fillStyle = gradient;
 
-  //Ball
-  context.beginPath();
-  context.arc(ball.x, ball.y, ball.size, 0, Math.PI*2, true);
-  //context.fillStyle = balls[i].color; //solid color
-  //context.fillStyle = "green"; //for debug
-  context.fill();
+  var curLetter = ball.letters.length;
+  switch(curLetter) {
+  case 7:
+    //Ball
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(ball.x, ball.y + 60, ball.size, 0, Math.PI*2, true);
+    context.fill();
 
-  //Letter
-  context.textAlign = "center";
-  context.textBaseline = "middle";
-  context.fillStyle = "white";
-  context.fillText(ball.letters[0], ball.x, ball.y - 2); //shift letters up slightly
-  //context.fillText(ball.letters.length, ball.x, ball.y - 2); //shift letters up slightly
+    //Letter
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "white";
+    context.fillText(ball.letters[6], ball.x, ball.y + 62 );
+  case 6:
+    //Ball
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(ball.x, ball.y - 60, ball.size, 0, Math.PI*2, true);
+    context.fill();
+
+    //Letter
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "white";
+    context.fillText(ball.letters[5], ball.x, ball.y - 58 );
+  case 5:
+    //Ball
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(ball.x-45, ball.y+30, ball.size, 0, Math.PI*2, true);
+    context.fill();
+
+    //Letter
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "white";
+    context.fillText(ball.letters[4], ball.x-45, ball.y +28); //shift letters up slightly
+  case 4:
+    //Ball
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(ball.x+45, ball.y-30, ball.size, 0, Math.PI*2, true);
+    context.fill();
+
+    //Letter
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "white";
+    context.fillText(ball.letters[3], ball.x+45, ball.y -32); //shift letters up slightly
+  case 3:
+    //Ball
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(ball.x+45, ball.y+30, ball.size, 0, Math.PI*2, true);
+    context.fill();
+
+    //Letter
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "white";
+    context.fillText(ball.letters[2], ball.x+45, ball.y +28); //shift letters up slightly
+  case 2:
+    //Ball
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(ball.x-45, ball.y-30, ball.size, 0, Math.PI*2, true);
+    context.fill();
+
+    //Letter
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "white";
+    context.fillText(ball.letters[1], ball.x-45, ball.y - 32); //shift letters up slightly
+  case 1:
+    //Ball
+    context.fillStyle = gradient;
+    context.beginPath();
+    context.arc(ball.x, ball.y, ball.size, 0, Math.PI*2, true);
+    //context.fillStyle = balls[i].color; //solid color
+    //context.fillStyle = "green"; //for debug
+    context.fill();
+
+    //Letter
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "white";
+    context.fillText(ball.letters[0], ball.x, ball.y - 2); //shift letters up slightly
+    //context.fillText(ball.letters.length, ball.x, ball.y - 2); //shift letters up slightly
+  }
 }
 
 function update(ball) {
@@ -231,7 +337,7 @@ function update(ball) {
   // var drag = .98; //original drag
 
   var gravity = 0; // no gravity
-  var drag = .99;//.9999999; //very little resistence
+  var drag = .995;//.9999999; //very little resistence
 
   if(ball.dragging) {
     ball.vx = ball.x - ball.ox;
