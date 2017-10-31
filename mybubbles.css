@@ -3,8 +3,41 @@
 * { margin:0; padding:0; background-color:#666666; }
 
 /*HTML Tags*/
-body { margin: 0; }
-td   { text-align: center; }
+/*body { margin: 0; }
+td   { text-align: center; }*/
+
+/*ids*/
+#hamburger {
+    position: absolute;
+    font-size: 3em;
+    right: 20;
+    background-color: transparent;
+}
+
+#sidebar {
+  display: none;
+  right: 0;
+  height:100%;
+  font-size: 1.5em;
+  /*width:200px;*/
+  /*background-color:#fff;*/
+  background-color: transparent;
+  position:fixed!important;
+  z-index:1;
+  overflow:auto;
+  box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)
+  position:relative;
+  animation: animatesidebar 0.4s
+}
+
+@keyframes animatesidebar {
+  from { right:-300px; opacity:0 }
+  to { right:0; opacity:1 } }
+}
+
+/*#screen {
+  position: relative;
+}*/
 
 /*Class Declarations*/
 /*Colored Squares*/
@@ -30,6 +63,10 @@ td   { text-align: center; }
 .checker:hover {
   background-color: yellow;
   color: black;
+}
+
+.hidden {
+  display: none;
 }
 
 /*Media Declarations*/

@@ -5,23 +5,16 @@
 
 	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
 
-	<style>
-	</style>
 
-	<canvas id="stage" width="400" height="400">
-		<p>Your browser doesn't support canvas.</p>
-	</canvas>
 
-	<!-- External Style and JavaScript-->
-	<link rel="stylesheet" type="text/css" href="mybubbles.css">
-	<script type="text/javascript" src="mybubbles.js"></script>
+
 
 </head>
 <body>
-	<input type="checkbox" id="slide" name="" value="" />
-	<div class="container">
-		<label for="slide" class="toggle">☰</label>
-		<nav class="sidebar">
+	<input class="hidden" type="checkbox" id="slide" name="" value="" />
+	<label id="hamburger" for="slide" class="toggle" onclick="toggleSidebar()">☰</label>
+	<div id="sidebar" class="container">
+		<nav class="sidebar" onclick="toggleSidebar()">
 			<ul>
 				<li>apple</li>
 				<li>banana</li>
@@ -30,11 +23,17 @@
 				<li>elderberry</li>
 				<li>fresia</li>
 				<li>grape</li>
-				<li>i</li>
-				<li>j</li>
-				<li>k</li>
+				<li>imbe</li>
+				<li>jackfruit</li>
+				<li>kiwi</li>
 			</ul>
 		</nav>
 	</div>
+	<canvas id="stage" width="400" height="400">
+		<p>Your browser doesn't support canvas.</p>
+	</canvas>
 </body>
+<!-- External Style and JavaScript-->
+<link rel="stylesheet" type="text/css" href="mybubbles.css">
+<script type="text/javascript" src="mybubbles.js"></script>
 </html>

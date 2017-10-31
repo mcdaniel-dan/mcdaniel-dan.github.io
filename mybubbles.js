@@ -418,3 +418,9 @@ function getDocHeight() {
   y = w.innerHeight || e.clientHeight || b.clientHeight;
   return y;
 }
+
+function toggleSidebar() {
+    var side = document.getElementById("sidebar")
+    var disp = side.style.display;
+    side.style.display = (disp == "block") ? "none" : "block";
+}
