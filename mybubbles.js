@@ -111,7 +111,7 @@ function newBall(mX, mY, letter, index) {
 
       var ball = {}; //ball object
       ball.letters = [ letter ];
-      ball.letters = [ index ];
+      //ball.letters = [ index ];
 
       ball.color = generateColor();
       ball.bounce = .5;// + (Math.random() * .5);
