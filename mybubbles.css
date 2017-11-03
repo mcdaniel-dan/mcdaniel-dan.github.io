@@ -3,7 +3,11 @@
 * {
   margin:0;
   padding:0;
-  background-color: skyBlue;
+  /*background-color: #296077;*/
+}
+
+canvas {
+  background-color: #296077;
 }
 
 /***
@@ -17,6 +21,8 @@
  */
 
 ul {
+
+  background-color: transparent;
   list-style: none;
 }
 
@@ -83,6 +89,7 @@ li {
  }
 
  #sidebar {
+   background-color: transparent;
    border-radius: 25px;
    font-family: 'Nothing You Could Do', cursive;
    display: none;
@@ -92,8 +99,6 @@ li {
    font-size: 1.5em;
    /*width:200px;*/
    width:20%;
-   /*background-color:#fff;*/
-   background-color: black;
    position:fixed!important;
    z-index:1;
    overflow:auto;
