@@ -2,31 +2,15 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<title>Wubbles</title>
-
 	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-
-
-
-
-
 </head>
-<body>
+<body onload="onLoad()">
 	<input class="hidden" type="checkbox" id="slide" name="" value="" />
 	<label id="hamburger" for="slide" class="toggle" onclick="toggleSidebar()" ontouch="toggleSidebar()">☰</label>
 	<div> <!--  class="container"> -->
 		<nav id="sidebar" class="sidebar" onclick="toggleSidebar()" ontouch="toggleSidebar()">
 			<h2>&nbsp&nbsp&nbspWord List</h2>
-			<ul>
-				<li>apple</li>
-				<li>banana</li>
-				<li>currant</li>
-				<li>durian</li>
-				<li>elderberry</li>
-				<li>fig</li>
-				<li>grape</li>
-				<li>imbe</li>
-				<li>jackfruit</li>
-				<li>kiwi</li>
+			<ul id="levelList">
 			</ul>
 		</nav>
 	</div>

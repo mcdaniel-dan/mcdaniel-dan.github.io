@@ -1,0 +1,6 @@
+{
+    "levelList": [ "apple", "banana", "currant", "durian", "elderberry", "fig",
+                   "grape", "imbe", "jackfruit", "kiwi" ],
+		"levelNumber": 2,
+    "levelName": "Fruit"
+}

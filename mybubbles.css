@@ -48,6 +48,7 @@ li {
 .red   { background-color: red;  }
 .gray  { background-color: gray; }
 .black { background-color: black;}
+.completed { text-decoration: wavy darkRed line-through; }
 
 /*Font Weighting*/
 .bold {
