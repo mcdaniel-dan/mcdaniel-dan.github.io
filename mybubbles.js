@@ -691,3 +691,17 @@ function loadLevel(level) {
   file.send(null);
 	return levelObject;
 }
+
+function fadeIn(element) {
+	element.classList.addChild("hidden");
+	element.classList.removeChild("visible");
+}
+
+function fadeOut(element) {
+	element.classList.addChild("visible");
+	element.classList.removeChild("hidden");
+}
+
+//Transisitons
+//Animations
+//Transforms
