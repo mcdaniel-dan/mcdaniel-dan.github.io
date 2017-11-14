@@ -1,0 +1,120 @@
+/*Default Style*/
+* {
+    box-sizing: border-box;
+    color: dimgray;
+}
+
+/*HTML Tags*/
+body { margin: 0; }
+td   { text-align: center; }
+
+/*Class Declarations*/
+/*Colored Squares*/
+.blue  { background-color: blue; }
+.red   { background-color: red;  }
+.gray  { background-color: gray; }
+.black { background-color: black;}
+
+/*Hidden*/
+.hidden {
+  visibility: hidden;
+}
+
+.world {
+  -webkit-perspective: 1000px;
+  -webkit-transform-style: preserve3d;;
+}
+
+/*.left   { -webkit-animation: foldleft ease-in-out 3s infinite alternate; }*/
+.left   { -webkit-animation: foldleft   ease-in-out 3s infinite alternate;}
+.right  { -webkit-animation: foldright  ease-in-out 3s infinite alternate; }
+.top    { -webkit-animation: foldtop    ease-in-out 3s infinite alternate; }
+.bottom { -webkit-animation: foldbottom ease-in-out 3s infinite alternate; }
+.front  { -webkit-animation: foldfront  ease-in-out 3s infinite alternate; }
+.back   { -webkit-animation: foldback   ease-in-out 3s infinite alternate; }
+
+/*Box*/
+.box {
+  webkit-perspective: 1000px;
+  border-color: black;
+  border-style: dashed;
+  border-width: thin;
+}
+
+/*Font Weighting*/
+.bold {
+  font-weight: bold;
+  color: white;
+}
+
+/*Cell Definition*/
+.checker {
+  font-size: 4vw;
+  float:left;         /*Horizontal Layout*/
+  text-align: center; /*Horizontal Centering*/
+  transition: background-color 2s, color 5s;
+}
+
+.checker:hover {
+  background-color: yellow;
+  color: black;
+}
+
+/*Media Declarations*/
+@media (max-width: 600px) {
+    .row {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+}
+
+.move { }
+
+@-webkit-keyframes foldleft
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    to { left: 0px; -webkit-transform: scale(1.0)
+                                  translate3D(50%,0,0)
+                                     rotateY(90deg) }
+}
+
+@-webkit-keyframes foldright
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+    to { left: 0px; -webkit-transform: scale(1.0)
+                                  translate3D(-50%,0,0)
+                                     rotateY(-90deg)
+                                     }
+}
+
+@-webkit-keyframes foldtop
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+    to { left: 0px; -webkit-transform: scale(1.0)
+                                  translate3D(0,50%,0)
+                                     rotateX(-90deg) }
+}
+
+@-webkit-keyframes foldbottom
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+    to { left: 0px; -webkit-transform: scale(1.0)
+                                  translate3D(0,-50%,0)
+                                     rotateX(90deg) }
+}
+
+@-webkit-keyframes foldfront
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+    to { left: 0px; -webkit-transform:
+                                    translate3D(-200%,0,10vh)
+                                       rotateY(-180deg)
+                                         scale(1) }
+}
+
+@-webkit-keyframes foldback
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+    to { left: 0px; -webkit-transform: scale(1.0)
+                                  translate3D(0,0,-10vh)
+                                     rotateY(0deg)
+                                  translateX(0%) }
+}
+
+
+
+   /*to   {left: 500px; -webkit-transform: scale(1.0) rotate(0deg) }*/
