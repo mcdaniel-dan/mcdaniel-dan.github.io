@@ -11,7 +11,7 @@ function onload() {
   console.log("Initializing...");
   //alert("Welcome\nYou're experience is being generated...");
 
-  var colors = {one:"red", two:"black"};//associative array/object
+  //var colors = {one:"red", two:"black"};//associative array/object
 
   //Create a div for Loops, Conditional Statements, Functions,
   //Variables, Parameters, Arrays, Associative Arrays
@@ -66,16 +66,17 @@ function onload() {
       // data.innerHTML = value++; //set value of the td
       if (value == 9 || (value >= 14 && value <= 17) || value == 21) {
           data.classList.add("box");
-          if (value == 9)  { data.classList.add("top");    }
-          if (value == 14) { data.classList.add("left");   }
-          if (value == 15) { data.classList.add("back");   }
-          if (value == 16) { data.classList.add("right");  }
-          if (value == 17) { data.classList.add("front");  }
-          if (value == 21) { data.classList.add("bottom"); }
+          if (value == 9)  { data.classList.add("top");    data.innerHTML = 1; }
+          if (value == 14) { data.classList.add("left");   data.innerHTML = 2; }
+          if (value == 15) { data.classList.add("back");   data.innerHTML = 3; }
+          if (value == 16) { data.classList.add("right");  data.innerHTML = 4; }
+          if (value == 17) { data.classList.add("front");  data.innerHTML = 5; }
+          if (value == 21) { data.classList.add("bottom"); data.innerHTML = 6; }
       } else {
           data.classList.add("hidden");
       }
-      data.innerHTML = value++; //set value of the td
+      value++;
+      //data.innerHTML = value++; //set value of the td
       row.appendChild(data);    //append the td to the row
     }
     table.appendChild(row);

@@ -21,21 +21,23 @@ td   { text-align: center; }
 }
 
 .world {
-  -webkit-perspective: 1000px;
-  -webkit-transform-style: preserve3d;;
+  -webkit-perspective: 50em;
+  /*-webkit-transform-style: preserve3d;*/
+  -webkit-perspective-origin: left top;
+  /*-webkit-animation: spin   ease-in-out 3s infinite alternate;*/
 }
 
 /*.left   { -webkit-animation: foldleft ease-in-out 3s infinite alternate; }*/
-.left   { -webkit-animation: foldleft   ease-in-out 3s infinite alternate;}
-.right  { -webkit-animation: foldright  ease-in-out 3s infinite alternate; }
-.top    { -webkit-animation: foldtop    ease-in-out 3s infinite alternate; }
-.bottom { -webkit-animation: foldbottom ease-in-out 3s infinite alternate; }
-.front  { -webkit-animation: foldfront  ease-in-out 3s infinite alternate; }
-.back   { -webkit-animation: foldback   ease-in-out 3s infinite alternate; }
+.left   { background: rgba(255, 0, 0, 0.3);   -webkit-animation: foldleft   ease-in-out 3s infinite alternate; }
+.right  { background: rgba(255, 127, 0, 0.3); -webkit-animation: foldright  ease-in-out 3s infinite alternate; }
+.top    { background: rgba(255, 255, 0, 0.3); -webkit-animation: foldtop    ease-in-out 3s infinite alternate; }
+.bottom { background: rgba(0, 255, 0, 0.3);   -webkit-animation: foldbottom ease-in-out 3s infinite alternate; }
+.front  { background: rgba(0, 127, 255, 0.3); -webkit-animation: foldfront  ease-in-out 3s infinite alternate; }
+.back   { background: rgba(0, 0, 255, 0.3);   -webkit-animation: foldback   ease-in-out 3s infinite alternate; }
 
 /*Box*/
 .box {
-  webkit-perspective: 1000px;
+  /*transform-origin: 0% 0%;*/
   border-color: black;
   border-style: dashed;
   border-width: thin;
@@ -71,49 +73,77 @@ td   { text-align: center; }
 .move { }
 
 @-webkit-keyframes foldleft
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+{
+  transform-origin: right center;
+  from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    50% { left: 0px; -webkit-transform: scale(1.0)
+                                translate3D(50%,0,0)
+                                   rotateY(90deg) }
     to { left: 0px; -webkit-transform: scale(1.0)
                                   translate3D(50%,0,0)
                                      rotateY(90deg) }
 }
 
 @-webkit-keyframes foldright
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    50% { left: 0px; -webkit-transform: scale(1.0)
+                              translate3D(-50%,0,0)
+                                 rotateY(-90deg) }
     to { left: 0px; -webkit-transform: scale(1.0)
                                   translate3D(-50%,0,0)
-                                     rotateY(-90deg)
-                                     }
+                                     rotateY(-90deg) }
 }
 
 @-webkit-keyframes foldtop
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
-    to { left: 0px; -webkit-transform: scale(1.0)
-                                  translate3D(0,50%,0)
-                                     rotateX(-90deg) }
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    50% { left: 0px; -webkit-transform:
+                      scale(1.0)
+                      translate3D(0,50%,0)
+                      rotateX(-90deg) }
+    to { left: 0px; -webkit-transform:
+                      scale(1.0)
+                      translate3D(0,50%,0)
+                      rotateX(-90deg) }
 }
 
 @-webkit-keyframes foldbottom
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
-    to { left: 0px; -webkit-transform: scale(1.0)
-                                  translate3D(0,-50%,0)
-                                     rotateX(90deg) }
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    50% { left: 0px; -webkit-transform:
+                      scale(1.0)
+                      translate3D(0,-50%,0)
+                      rotateX(90deg) }
+    to { left: 0px; -webkit-transform:
+                      scale(1.0)
+                      translate3D(0,-50%,0)
+                      rotateX(90deg) }
 }
 
 @-webkit-keyframes foldfront
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    50% { left: 0px; -webkit-transform:
+                      translate3D(-150%,0,16vw)
+                      rotateY(-90deg) }
     to { left: 0px; -webkit-transform:
-                                    translate3D(-200%,0,10vh)
-                                       rotateY(-180deg)
-                                         scale(1) }
+                      translate3D(-200%,0,8vw)
+                      rotateY(-180deg) }
 }
 
 @-webkit-keyframes foldback
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg)   }
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    50% { left: 0px; -webkit-transform: scale(1.0)
+                  translate3D(0,0,-6vh)
+                  rotateY(0deg)
+                  translateX(0%) }
     to { left: 0px; -webkit-transform: scale(1.0)
-                                  translate3D(0,0,-10vh)
-                                     rotateY(0deg)
-                                  translateX(0%) }
+                      translate3D(0,0,-6vh)
+                      rotateY(0deg)
+                      translateX(0%) }
 }
+
+/*@-webkit-keyframes spin
+{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
+    to { left: 0px; -webkit-transform: scale(1.0) rotate3D(360deg) }
+}*/
 
 
 
