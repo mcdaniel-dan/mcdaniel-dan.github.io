@@ -21,19 +21,19 @@ td   { text-align: center; }
 }
 
 .world {
-  -webkit-perspective: 50em;
-  /*-webkit-transform-style: preserve3d;*/
-  -webkit-perspective-origin: left top;
-  /*-webkit-animation: spin   ease-in-out 3s infinite alternate;*/
+  perspective: 100em;
+  /*transform-style: preserve3d;*/
+  perspective-origin: left top;
+  /*animation: spin   ease-in-out 3s infinite alternate;*/
 }
 
-/*.left   { -webkit-animation: foldleft ease-in-out 3s infinite alternate; }*/
-.left   { background: rgba(255, 0, 0, 0.3);   -webkit-animation: foldleft   ease-in-out 3s infinite alternate; }
-.right  { background: rgba(255, 127, 0, 0.3); -webkit-animation: foldright  ease-in-out 3s infinite alternate; }
-.top    { background: rgba(255, 255, 0, 0.3); -webkit-animation: foldtop    ease-in-out 3s infinite alternate; }
-.bottom { background: rgba(0, 255, 0, 0.3);   -webkit-animation: foldbottom ease-in-out 3s infinite alternate; }
-.front  { background: rgba(0, 127, 255, 0.3); -webkit-animation: foldfront  ease-in-out 3s infinite alternate; }
-.back   { background: rgba(0, 0, 255, 0.3);   -webkit-animation: foldback   ease-in-out 3s infinite alternate; }
+/*.left   { animation: foldleft ease-in-out 3s infinite alternate; }*/
+.left   { background: rgba(255, 000, 000, 0.3); transform-origin: right center;  animation: foldleft   ease-in-out 3s infinite alternate; }
+.right  { background: rgba(255, 127, 000, 0.3); transform-origin: left  center;  animation: foldright  ease-in-out 3s infinite alternate; }
+.top    { background: rgba(255, 255, 000, 0.3); transform-origin: center bottom; animation: foldtop    ease-in-out 3s infinite alternate; }
+.bottom { background: rgba(000, 255, 000, 0.3); transform-origin: center top;    animation: foldbottom ease-in-out 3s infinite alternate; }
+.front  { background: rgba(000, 127, 255, 0.3); transform-origin: left center;   animation: foldfront  ease-in-out 3s infinite alternate; }
+.back   { background: rgba(000, 000, 255, 0.3); transform-origin: right center;  animation: foldback   ease-in-out 3s infinite alternate; }
 
 /*Box*/
 .box {
@@ -65,86 +65,63 @@ td   { text-align: center; }
 /*Media Declarations*/
 @media (max-width: 600px) {
     .row {
-      -webkit-flex-direction: column;
+      flex-direction: column;
       flex-direction: column;
     }
 }
 
 .move { }
 
-@-webkit-keyframes foldleft
+@keyframes foldleft
 {
   transform-origin: right center;
-  from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
-    50% { left: 0px; -webkit-transform: scale(1.0)
-                                translate3D(50%,0,0)
-                                   rotateY(90deg) }
-    to { left: 0px; -webkit-transform: scale(1.0)
-                                  translate3D(50%,0,0)
-                                     rotateY(90deg) }
+  from { left: 0px; transform: rotate(0deg)   }
+   50% { left: 0px; transform: rotateY(90deg) }
+    to { left: 0px; transform: rotateY(90deg) }
 }
 
-@-webkit-keyframes foldright
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
-    50% { left: 0px; -webkit-transform: scale(1.0)
-                              translate3D(-50%,0,0)
-                                 rotateY(-90deg) }
-    to { left: 0px; -webkit-transform: scale(1.0)
-                                  translate3D(-50%,0,0)
-                                     rotateY(-90deg) }
+@keyframes foldright
+{ transform-origin: right center;
+  from { left: 0px; transform: rotate(0deg)    }
+   50% { left: 0px; transform: rotateY(-90deg) }
+    to { left: 0px; transform: rotateY(-90deg) }
 }
 
-@-webkit-keyframes foldtop
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
-    50% { left: 0px; -webkit-transform:
-                      scale(1.0)
-                      translate3D(0,50%,0)
-                      rotateX(-90deg) }
-    to { left: 0px; -webkit-transform:
-                      scale(1.0)
-                      translate3D(0,50%,0)
-                      rotateX(-90deg) }
+@keyframes foldtop
+{ transform-origin: center bottom;
+  from { left: 0px; transform: rotate(0deg)    }
+   50% { left: 0px; transform: rotateX(-90deg) }
+    to { left: 0px; transform: rotateX(-90deg) }
 }
 
-@-webkit-keyframes foldbottom
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
-    50% { left: 0px; -webkit-transform:
-                      scale(1.0)
-                      translate3D(0,-50%,0)
-                      rotateX(90deg) }
-    to { left: 0px; -webkit-transform:
-                      scale(1.0)
-                      translate3D(0,-50%,0)
-                      rotateX(90deg) }
+@keyframes foldbottom
+{ transform-origin: center top;
+  from { left: 0px; transform: rotate(0deg)   }
+   50% { left: 0px; transform: rotateX(90deg) }
+    to { left: 0px; transform: rotateX(90deg) }
 }
 
-@-webkit-keyframes foldfront
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
-    50% { left: 0px; -webkit-transform:
-                      translate3D(-150%,0,16vw)
-                      rotateY(-90deg) }
-    to { left: 0px; -webkit-transform:
-                      translate3D(-200%,0,8vw)
-                      rotateY(-180deg) }
+@keyframes foldfront
+{ transform-origin: left center;
+  from { left: 0px; transform: rotate(0deg) }
+   /*12% { left: 0px; transform: translate3D(-4.16vw,0,4.16vw)   rotateY(-22.5deg)  }
+   25% { left: 0px; transform: translate3D(-8.33vw,0,8.33vw)   rotateY(-45deg)  }*/
+   50% { left: 0px; transform: translate3D(-16.66vw,0,16.66vw) rotateY(-90deg)  }
+    to { left: 0px; transform: translate3D(-16.66vw,0,16.66vw) rotateY(-180deg) }
 }
 
-@-webkit-keyframes foldback
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
-    50% { left: 0px; -webkit-transform: scale(1.0)
-                  translate3D(0,0,-6vh)
-                  rotateY(0deg)
-                  translateX(0%) }
-    to { left: 0px; -webkit-transform: scale(1.0)
-                      translate3D(0,0,-6vh)
-                      rotateY(0deg)
-                      translateX(0%) }
-}
+@keyframes foldback {}
+/*{ transform-origin: right center;
+  from { left: 0px; transform: rotate(0deg) }
+   50% { left: 0px; transform: rotateY(0deg) }
+   to { left: 0px; transform: translateX(0%) }
+}*/
 
-/*@-webkit-keyframes spin
-{ from { left: 0px; -webkit-transform: scale(1.0) rotate(0deg) }
-    to { left: 0px; -webkit-transform: scale(1.0) rotate3D(360deg) }
+/*@keyframes spin
+{ from { left: 0px; transform: scale(1.0) rotate(0deg) }
+    to { left: 0px; transform: scale(1.0) rotate3D(360deg) }
 }*/
 
 
 
-   /*to   {left: 500px; -webkit-transform: scale(1.0) rotate(0deg) }*/
+   /*to   {left: 500px; transform: scale(1.0) rotate(0deg) }*/
