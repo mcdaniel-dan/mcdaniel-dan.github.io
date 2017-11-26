@@ -106,7 +106,7 @@ td   { text-align: center; }
   from { left: 0px; transform: rotate(0deg) }
    /*12% { left: 0px; transform: translate3D(-4.16vw,0,4.16vw)   rotateY(-22.5deg)  }
    25% { left: 0px; transform: translate3D(-8.33vw,0,8.33vw)   rotateY(-45deg)  }*/
-   50% { left: 0px; transform: translate3D(-16.66vw,0,16.66vw) rotateY(-90deg)  }
+   50% { left: 0px; transform: translate3D(-16.66vw,0,16.66vw) rotateY(-90deg) }
     to { left: 0px; transform: translate3D(-16.66vw,0,16.66vw) rotateY(-180deg) }
 }
 
