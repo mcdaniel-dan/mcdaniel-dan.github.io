@@ -6,9 +6,7 @@
   /*background-color: #296077;*/
 }
 
-canvas {
-  background-color: #296077;
-}
+canvas { background-color: #296077; }
 
 /***
  *    ######## ##       ######## ##     ## ######## ##    ## ########  ######
@@ -21,14 +19,11 @@ canvas {
  */
 
 ul {
-
   background-color: transparent;
   list-style: none;
 }
 
-li {
-  color: white;
-}
+li { color: white; }
 
 /*#screen {
   position: relative;
@@ -69,9 +64,7 @@ li {
   color: black;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 /***
  *    #### ########   ######

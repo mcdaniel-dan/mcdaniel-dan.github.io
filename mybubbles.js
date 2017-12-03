@@ -55,7 +55,7 @@ var stageWidth = getDocWidth();           //Pure JS
 //var stageHeight = $(document).height(); //jQuert
 var stageHeight = getDocHeight();					//Pure JS
 
-stage.width = stageWidth;
+stage.width  = stageWidth;
 stage.height = stageHeight;
 
 document.addEventListener(Event.MOUSEMOVE, getMouseXY, false);
@@ -82,17 +82,22 @@ if(drawingCanvas.getContext) {
 
 function onLoad() {
 	updateLevelList();
-}
 
-//Todo: Convert to Pure JS
-jQuery(document).ready(function()
-{
-  //Pure JS
   stage.onmousedown  = function (e) { onMouseDown(); }
   stage.onmouseup    = function (e) { onMouseUp();   }
   stage.ontouchstart = function (e) { onMouseDown(); }
   stage.ontouchend   = function (e) { onMouseUp();   }
-})
+}
+
+//Todo: Convert to Pure JS
+// jQuery(document).ready(function()
+// {
+//   //Pure JS
+//   stage.onmousedown  = function (e) { onMouseDown(); }
+//   stage.onmouseup    = function (e) { onMouseUp();   }
+//   stage.ontouchstart = function (e) { onMouseDown(); }
+//   stage.ontouchend   = function (e) { onMouseUp();   }
+// })
 
 /***
  *    ########     ###    ##       ##           ######   ######## ##    ## ######## ########     ###    ######## ####  #######  ##    ##
