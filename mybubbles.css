@@ -6,8 +6,6 @@
   /*background-color: #296077;*/
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 canvas {
   background-color: #296077;
   animation-name: canvasColors;
@@ -15,12 +13,6 @@ canvas {
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
-=======
-canvas { background-color: #296077; }
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
-=======
-canvas { background-color: #296077; }
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
 
 /***
  *    ######## ##       ######## ##     ## ######## ##    ## ########  ######
@@ -78,8 +70,6 @@ li { color: white; }
   color: black;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .none { display: none; }
 .visible {
  visibility: visible;
@@ -90,12 +80,8 @@ li { color: white; }
  visibility: hidden;
  opacity: 0;
 }
-=======
-.hidden { display: none; }
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
-=======
-.hidden { display: none; }
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
+
+/*.hidden { display: none; }*/
 
 /***
  *    #### ########   ######
