@@ -75,40 +75,15 @@ if(drawingCanvas.getContext) {
 function onLoad() {
 	updateLevelList();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	var welcome = document.getElementById("welcome");
 	welcome.onmouseup  = function (e) { dismissWelcome(); }
 	welcome.ontouchend = function (e) { dismissWelcome(); }
 
-=======
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
-=======
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
   stage.onmousedown  = function (e) { onMouseDown(); }
   stage.onmouseup    = function (e) { onMouseUp();   }
   stage.ontouchstart = function (e) { onMouseDown(); }
   stage.ontouchend   = function (e) { onMouseUp();   }
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
-
-//Todo: Convert to Pure JS
-// jQuery(document).ready(function()
-// {
-//   //Pure JS
-//   stage.onmousedown  = function (e) { onMouseDown(); }
-//   stage.onmouseup    = function (e) { onMouseUp();   }
-//   stage.ontouchstart = function (e) { onMouseDown(); }
-//   stage.ontouchend   = function (e) { onMouseUp();   }
-// })
-<<<<<<< HEAD
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
-=======
->>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
 
 /***
  *    ########     ###    ##       ##           ######   ######## ##    ## ######## ########     ###    ######## ####  #######  ##    ##
