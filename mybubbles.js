@@ -13,13 +13,9 @@
 // 	miner.setThrottle(.5);
 //   miner.start();
 
+//set up the stage
 var stage = document.getElementById('stage');
 var rack = ""; //to store letters for word making
-//list indicating if the words have been completed yet
-// var levelList = { "apple":false,     "banana":false,   "currant":false,
-// 								 "durian":false, "elderberry":false,       "fig":false,
-// 								  "grape":false,       "imbe":false, "jackfruit":false,
-// 									 "kiwi":false };
 var levelList = {};
 
 //retrieve level from localStorage
@@ -35,7 +31,6 @@ for (var w in currentLevel.levelList) {
 	levelList[currentLevel.levelList[w]] = false;
 }
 
-
 var latestWord = "Wubbles";
 var latestDef = "A mobile word bubble game created for CS261!";
 var score = 0;
@@ -49,10 +44,7 @@ var currentDrag = null;
 var mouseX = 0;
 var mouseY = 0;
 
-//var stageWidth = $(document).width();   //jQuery
 var stageWidth = getDocWidth();           //Pure JS
-
-//var stageHeight = $(document).height(); //jQuert
 var stageHeight = getDocHeight();					//Pure JS
 
 stage.width  = stageWidth;
@@ -83,11 +75,26 @@ if(drawingCanvas.getContext) {
 function onLoad() {
 	updateLevelList();
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	var welcome = document.getElementById("welcome");
+	welcome.onmouseup  = function (e) { dismissWelcome(); }
+	welcome.ontouchend = function (e) { dismissWelcome(); }
+
+=======
+>>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
+=======
+>>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
   stage.onmousedown  = function (e) { onMouseDown(); }
   stage.onmouseup    = function (e) { onMouseUp();   }
   stage.ontouchstart = function (e) { onMouseDown(); }
   stage.ontouchend   = function (e) { onMouseUp();   }
 }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
 
 //Todo: Convert to Pure JS
 // jQuery(document).ready(function()
@@ -98,6 +105,10 @@ function onLoad() {
 //   stage.ontouchstart = function (e) { onMouseDown(); }
 //   stage.ontouchend   = function (e) { onMouseUp();   }
 // })
+<<<<<<< HEAD
+>>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
+=======
+>>>>>>> c31f23e52dab9cda72f0ac5d68aa6670e80abbbf
 
 /***
  *    ########     ###    ##       ##           ######   ######## ##    ## ######## ########     ###    ######## ####  #######  ##    ##
@@ -118,54 +129,38 @@ function generateBalls(mX, mY) {
       ball.bounce = .5 + (Math.random() * .5);
       ball.vx = Math.random() * 50 - 25;
       ball.vy = Math.random() * 50 - 25;
-      //ball.size = 45 - (ball.bounce * 25); //original size
       ball.size = 50; //fixed ball size
 
       ball.x = Math.random() * stageWidth;
       ball.y = Math.random() * stageHeight;
-      //					 ball.x = (mX) ? (mX + Math.random() * 4) : (Math.random() * stageWidth);
-      //					 ball.y = (mY) ? (mY + Math.random() * 4) : (Math.random() * stageHeight);
-      balls[balls.length] = ball;
+			balls[balls.length] = ball;
     }
   }
 }
 
 function newBall(mX, mY, letter, index) {
-  //if (balls.length < maxBalls) {
-    //for(var i = 0; i < volleySize; i++)	{
-			//convert index into an angle
-			var myAngle = index * 60 - 30;
-			// console.log("Index = " + index);
-			// console.log("Angle = " + myAngle);
-			// console.log("x = " + Math.cos(myAngle));
-			// console.log("y = " + Math.sin(myAngle));
+		var myAngle = index * 60 - 30;
 
-      var ball = {}; //ball object
-      ball.letters = [ letter ];
-      //ball.letters = [ index ];
+    var ball = {}; //ball object
+    ball.letters = [ letter ];
 
-      ball.color = generateColor();
-      ball.bounce = .5;// + (Math.random() * .5);
-      ball.vx = 10 * Math.cos(myAngle);
-      ball.vy = 10 * Math.sin(myAngle);
-      //ball.size = 45 - (ball.bounce * 25); //original size
-      ball.size = 50; //fixed ball size
+    ball.color = generateColor();
+    ball.bounce = .5;// + (Math.random() * .5);
+    ball.vx = 10 * Math.cos(myAngle);
+    ball.vy = 10 * Math.sin(myAngle);
+    ball.size = 50; //fixed ball size
 
-      ball.x = mX + 30 * ball.vx;
-      ball.y = mY + 30 * ball.vy;
-      //					 ball.x = (mX) ? (mX + Math.random() * 4) : (Math.random() * stageWidth);
-      //					 ball.y = (mY) ? (mY + Math.random() * 4) : (Math.random() * stageHeight);
-      balls[balls.length] = ball;
-    //}
-  //}
+    ball.x = mX + 30 * ball.vx;
+    ball.y = mY + 30 * ball.vy;
+		balls[balls.length] = ball;
 }
 
 //generates random color
 function generateColor()
 {
-  color="#"
+  color = "#";
   for (i = 0; i < 6; i++) {
-    color += "0123456789abcdef".charAt(Math.round(Math.random()*8)); //8 excludes light colors
+    color += "0123456789abcdef".charAt(Math.round(Math.random() * 8)); //8 excludes light colors
   }
   return color;
   //return "red";
@@ -318,9 +313,6 @@ function drawBall(ball) {
 function update(ball) {
   collisionCheck();
 
-  // var gravity = 0.25; //original gravity
-  // var drag = .98; //original drag
-
   var gravity = 0; // no gravity
   var drag = .999;//.9999999; //very little resistence
 
@@ -338,16 +330,14 @@ function update(ball) {
 
     if ((ball.y + ball.size) > stageHeight) { ball.y = stageHeight - ball.size;}
 		else if((ball.y - ball.size) < 0) { ball.y = 0 + ball.size; }
-  }
-	else {
+  } else {
     ball.x += ball.vx;
     ball.y += ball.vy;
 
     if ((ball.x + ball.size) > stageWidth) {
       ball.x = stageWidth - ball.size;
       ball.vx = -ball.vx * ball.bounce;
-    }
-    else if((ball.x - ball.size) < 0) {
+    } else if((ball.x - ball.size) < 0) {
       ball.x = 0 + ball.size;
       ball.vx = -ball.vx * ball.bounce;
     }
@@ -355,8 +345,7 @@ function update(ball) {
     if ((ball.y + ball.size) > stageHeight) {
       ball.y = stageHeight - ball.size;
       ball.vy = -ball.vy * ball.bounce;
-    }
-    else if((ball.y - ball.size) < 0) {
+    } else if((ball.y - ball.size) < 0) {
       ball.y = 0 + ball.size;
       ball.vy = -ball.vy * ball.bounce;
     }
@@ -453,6 +442,11 @@ function collisionCheck()
  *    ########    ###    ######## ##    ##    ##     ######
  */
 
+	function dismissWelcome() {
+		var welcome = document.getElementById("welcome");
+		welcome.classList.add("hidden");
+	}
+
  //todo: handle clicking on words
  function onMouseDown() {
    // var dx = mouseX - rack.x;
@@ -493,9 +487,7 @@ function collisionCheck()
    }
  }
 
- function onMouseUp() {
-   if(currentDrag != null) currentDrag.dragging = false;
- }
+function onMouseUp() { if(currentDrag != null) currentDrag.dragging = false; }
 
 function getMouseXY(e) {
   mouseX = e.pageX;
@@ -539,9 +531,7 @@ function render() {
  *    ##  ##  ## ##     ## ##    ##  ##     ##      ##    ##  ##       ##       ##     ##    ##    ##       ##     ##
  *     ###  ###   #######  ##     ## ########       ##     ## ######## ######## ##     ##    ##    ######## ########
  */
- function scoreWord(word) {
-   return Math.pow(word.length,2);
- }
+ function scoreWord(word) { return Math.pow(word.length, 2); }
 
  function checkWord(word) {
 	 if (levelList[word] == false)
@@ -663,14 +653,7 @@ function getDocHeight() {
 function toggleSidebar() {
     var side = document.getElementById("sidebar")
     var disp = side.style.display;
-    //=side.style.display = (disp == "block") ? "none" : "block";
-		if (side.classList == "none") {
-			side.classList.appendChild("hidden");
-			side.removeChild.appendChild("visible");
-		} else {
-				side.classList.appendChild("visible");
-				side.removeChild.appendChild("hidden");
-		}
+    side.style.display = (disp == "block") ? "none" : "block";
 }
 
 function isLevelDone() {

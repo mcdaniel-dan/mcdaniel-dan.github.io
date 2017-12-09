@@ -5,11 +5,24 @@
 	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
 </head>
 <body onload="onLoad()">
+	<div id="welcome">
+		<h1>Wubbles!</h1>
+		<hr>
+		<p>
+		<ol>
+			<li>Pop Letters to From Words</li>
+			<li>Burst Clusters to Free Letters</li>
+			<li>Tap Words to Seet it's Definition and Earn Points</li>
+		</ol>
+	</p>
+	<br>
+	<p>Tap the hambuger (☰) in the upper right to get a list of words for the current level.</p>
+	</div>
 	<input class="hidden" type="checkbox" id="slide" name="" value="" />
 	<label id="hamburger" for="slide" class="toggle" onclick="toggleSidebar()" ontouch="toggleSidebar()">☰</label>
 	<div> <!--  class="container"> -->
 		<nav id="sidebar" class="sidebar" onclick="toggleSidebar()" ontouch="toggleSidebar()">
-			<h2>&nbsp&nbsp&nbspWord List</h2>
+			<h2>Word List</h2>
 			<ul id="levelList">
 			</ul>
 		</nav>
