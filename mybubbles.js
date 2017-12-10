@@ -39,7 +39,7 @@ var browserX = window.screenX;
 var browserY = window.screenY;
 var balls = [];
 var volleySize = 1; //number of balls generated
-var maxBalls = 5;
+var maxBalls = 7;
 var currentDrag = null;
 var mouseX = 0;
 var mouseY = 0;
@@ -80,9 +80,9 @@ function onLoad() {
 	welcome.ontouchend = function (e) { dismissWelcome(); }
 
   stage.onmousedown  = function (e) { onMouseDown(); }
-  stage.onmouseup    = function (e) { onMouseUp();   }
+  stage.onmouseup    = function (e) { /*onMouseUp();*/   }
   stage.ontouchstart = function (e) { onMouseDown(); }
-  stage.ontouchend   = function (e) { onMouseUp();   }
+  stage.ontouchend   = function (e) { /*onMouseUp();*/   }
 }
 
 /***
@@ -134,14 +134,13 @@ function newBall(mX, mY, letter, index) {
 function generateColor()
 {
   color = "#";
-  for (i = 0; i < 6; i++) {
+  for (i = 0; i < 6; i++) { //6 hex digits
     color += "0123456789abcdef".charAt(Math.round(Math.random() * 8)); //8 excludes light colors
   }
   return color;
-  //return "red";
 }
 
-//generates random color
+//generates random letter using english distribution
 function generateLetter() {
   return "aaaaaaaabcccddddeeeeeeeeeeeeeffgghhhhhhiiiiiiijkllllmmnnnnnnnooooooooppqrrrrrrsssssstttttttttuuuvwwxyyz".charAt(Math.round(Math.random()*103));
 }
@@ -342,6 +341,7 @@ function update(ball) {
 
 //Combines Object B with Object A
 function combineObjects(obj1, obj2) {
+	//reorder objects by size
 	if (obj1.letters.length < obj2.letters.length) {
 		temp = obj1;
 		obj1 = obj2;
@@ -350,6 +350,28 @@ function combineObjects(obj1, obj2) {
 	//merge
 	if (obj1.letters.length + obj2.letters.length <= 7) {
 		obj1.letters = obj1.letters.concat(obj2.letters);
+		obj1.vx += obj2.vx;
+		obj1.vy += obj2.vy;
+
+		//combine canvasColors
+		var c1 = obj1.color;
+		var c2 = obj2.color;
+
+		var r1 = parseInt(c1.substr(1,2), 16);
+		var g1 = parseInt(c1.substr(3,2), 16);
+		var b1 = parseInt(c1.substr(5,2), 16);
+
+		var r2 = parseInt(c2.substr(1,2), 16);
+		var g2 = parseInt(c2.substr(3,2), 16);
+		var b2 = parseInt(c2.substr(5,2), 16);
+
+		var r3 = (r1 + r2) / 2;
+	  var g3 = (g1 + g2) / 2;
+		var b3 = (b1 + b2) / 2;
+
+		obj1.color = "#" + (65536 * r3 + 256 * g3 + b3).toString(16).substr(0,6);
+		obj1.color.replace(".", 0);
+
 		//console.log(obj1.letters); //debug
 		//remove
 		var j = balls.length; //array of balls
@@ -399,7 +421,6 @@ function collisionCheck()
           ball1.vx += (ax * spring);
           ball1.vy += (ay * spring);
         } else {
-					ball0.vx
           //combine momentum
         }
       }
@@ -424,9 +445,6 @@ function collisionCheck()
 
  //todo: handle clicking on words
  function onMouseDown() {
-   // var dx = mouseX - rack.x;
-   // var dy = mouseY - rack.y;
-
    //letter picking
    var j = balls.length; //array of balls
    while(--j > -1) {
@@ -435,7 +453,7 @@ function collisionCheck()
      var dist = Math.sqrt(dx * dx + dy * dy);
 
      //if(dist < balls[j].size/2) { //detect ball touches
-     if(dist < balls[j].size) { //detect ball touches
+     if(dist < 1.5 * balls[j].size) { //detect ball touches
        if (balls[j].letters.length > 1) { //letter group
          while (balls[j].letters.length > 1) {
 					 var index = balls[j].letters.length - 1;
@@ -462,7 +480,7 @@ function collisionCheck()
    }
  }
 
-function onMouseUp() { if(currentDrag != null) currentDrag.dragging = false; }
+//function onMouseUp() { if(currentDrag != null) currentDrag.dragging = false; }
 
 function getMouseXY(e) {
   mouseX = e.pageX;

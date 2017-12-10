@@ -1,17 +1,8 @@
 /*Default Style*/
-/* { margin:0; padding:0; background-color:#87CEFA; } */
 * {
   margin:0;
   padding:0;
   /*background-color: #296077;*/
-}
-
-canvas {
-  background-color: #296077;
-  animation-name: canvasColors;
-  animation-duration: 60s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 
 /***
@@ -24,12 +15,15 @@ canvas {
  *    ######## ######## ######## ##     ## ######## ##    ##    ##     ######
  */
 
-ul {
-  background-color: transparent;
-  list-style: none;
-}
-
+ul { background-color: transparent; list-style: none;}
 li { color: white; }
+canvas {
+  background-color: #296077;
+  animation-name: canvasColors;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
 
 /*#screen {
   position: relative;
@@ -57,19 +51,6 @@ li { color: white; }
   color: white;
 }
 
-/*Cell Definition*/
-.checker {
-  font-size: 4vw;
-  float:left;         /*Horizontal Layout*/
-  text-align: center; /*Horizontal Centering*/
-  transition: background-color 2s, color 5s;
-}
-
-.checker:hover {
-  background-color: yellow;
-  color: black;
-}
-
 .none { display: none; }
 .visible {
  visibility: visible;
@@ -80,6 +61,8 @@ li { color: white; }
  visibility: hidden;
  opacity: 0;
 }
+
+
 
 /*.hidden { display: none; }*/
 
@@ -93,6 +76,7 @@ li { color: white; }
  *    #### ########   ######
  */
  #hamburger {
+     color: gray;
      position: absolute;
      font-size: 3em;
      right: 20;
@@ -159,10 +143,7 @@ h2 { margin-left: 10px;}
   *    ##     ## ##   ###  ##  ##     ## ##     ##    ##     ##  ##     ## ##   ###
   *    ##     ## ##    ## #### ##     ## ##     ##    ##    ####  #######  ##    ##
   */
-
-.slide-in  { animation:slide-in  0.5s forwards; }
-.slide-out { animation:slide-out 0.5s forwards; }
- @keyframes welcomeColors {
+@keyframes welcomeColors {
    from { background-color:#e6ffe6 }
    to   { background-color:#ffefff }
  }
