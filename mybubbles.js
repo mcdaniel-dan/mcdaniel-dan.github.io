@@ -370,7 +370,7 @@ function combineObjects(obj1, obj2) {
 		var b3 = (b1 + b2) / 2;
 
 		obj1.color = "#" + (65536 * r3 + 256 * g3 + b3).toString(16).substr(0,6);
-		obj1.color.replace(".", 0);
+		obj1.color = obj1.color.replace(".", 0);
 
 		//console.log(obj1.letters); //debug
 		//remove
